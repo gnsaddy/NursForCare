@@ -1,0 +1,28 @@
+{% extends 'include/base.html' %}
+{% load static %}
+{% block title %}<title>NursForCare</title>{% endblock %}
+{% block useCss %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> {% endblock %}
+
+
+{% block container_fluid %}
+<div class="container">
+    <img src="{% static 'img/heart-care-1040248_1280.png' %}" alt="heart" width="90%" height="auto"
+        style="margin-left: 15%; opacity: 0.1;">
+    <h2 class="top-left navbar-brand" style="color: #29a7a6;">NursForCare</h2>
+    <div class="row top-left">
+        <div class="col-sm-4 col-md-7 col-lg-7">
+            <div class="text-justify text-dark mt-5 font-weight-bold ">
+                <p class="">With NursForCare in-home nursing services, get the most of our healthcare services
+                    available in the comfort of your home. Encompassing highly qualified nurses for elderly care,
+                    post-surgical care, injections, wound care or vaccinations, providing doctor consultation,
+                    on time medicine delivery, ambulance service, our team is devoted to providing
+                    you with the compassionate care you deserve.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

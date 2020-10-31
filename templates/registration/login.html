@@ -1,0 +1,63 @@
+{% extends "include/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    <title>Login</title>
+{% endblock title %}
+
+{% block container_fluid %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm col-md-5 col-lg-5 mx-auto">
+                {% for message in messages %}
+                    <div class="card card-header"
+                         style="border-radius: 10px; margin-bottom: 1%; background: #29a7a6">
+                        <small class="font-weight-bold">{{ message }}</small>
+                    </div>
+                {% endfor %}
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4>Login</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                <div class="form-group">
+                                    <label for="username" class="requiredField">
+                                        Username<span class="asteriskField">*</span>
+                                    </label>
+                                    <input type="text" name="user_name" class="form-control rounded-pill"
+                                           id="username" placeholder="Enter username"
+                                           required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_password" class=" requiredField">
+                                        Password<span class="asteriskField">*</span>
+                                    </label>
+                                    <input type="password" name="password1" maxlength="32" placeholder="Enter password"
+                                           class="form-control rounded-pill" id="id_password" required>
+                                </div>
+                            </fieldset>
+                            <div class="form-row">
+                                <div class="form-group col-md-4 mb-0">
+                                    <button type="submit" class="btn rounded-pill btn-block font-weight-bold"
+                                            style="background: #29a7a6 ">Login
+                                    </button>
+                                </div>
+                                <div class="form-group col-md-7 mx-auto">
+                                    <div class="mt-2">
+                                        <small class="text-muted">
+                                            Do you need an account?
+                                            <a class="text-danger" href="{% url 'userRegistration' %}">Sign
+                                            Up</a>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'include/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} <title>User | Registration</title> {% endblock %}
+
+
+{% block container_fluid %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4>User Registration</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'userRegistration' %}">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form.username|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form.email|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form.first_name|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form.last_name|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 mb-0">
+                            {{ form.password1|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-4 mb-0">
+                            {{ form.password2|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-4 mb-0">
+                            {{ userProfileForm.mobile|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 mb-0">
+                            <button type="submit" class="btn rounded-pill btn-block font-weight-bold"
+                                    style="background: #29a7a6 ">Register User
+                            </button>
+                        </div>
+                        <div class="form-group col-md-6 mx-auto">
+                            <div class="mt-2">
+                                <small class="text-muted">
+                                    Do you need an account? <a class="text-danger" href="{% url 'login' %}">Sign
+                                    In</a>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br><br>
+{% endblock %}
