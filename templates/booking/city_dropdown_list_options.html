@@ -1,0 +1,13 @@
+<option value="">---------</option>
+{% for city in cities %}
+    <option value="{{ city.pk }}">{{ city.name }}</option>
+{% endfor %}
+
+{% for data in services %}
+    {% if data.available %}
+        <option value="{{ data.pk }}" class="text-success font-weight-bold">{{ data.name }} Provides {{ data.service.service_name }} Service "Available"</option>
+    {% else %}
+        <option value="{{ data.pk }}" class="text-danger font-weight-bold" title="Service Not Available" disabled>{{ data.name }} Provides {{ data.service.service_name }} Service "Not Available"</option>
+    {% endif %}
+
+{% endfor %}

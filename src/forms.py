@@ -1,15 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from .models import UserProfile, ServiceBooking
+from .models import User, Patient, City, Vendor
 
 
 class ExtendedUserCreationForm(UserCreationForm):
-    username = forms.CharField(max_length=50, widget=forms.TextInput(attrs={
-        "class": "form-control rounded-pill",
-        "placeholder": "Enter username"
-    }))
-
     email = forms.EmailField(required=True, label="Email", max_length=100, widget=forms.EmailInput(attrs={
         'class': 'form-control rounded-pill',
         'placeholder': 'Email Id'
@@ -34,20 +28,14 @@ class ExtendedUserCreationForm(UserCreationForm):
         "placeholder": "Confirm password"
     }))
 
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
-
-
-class UserProfileForm(forms.ModelForm):
-    mobile = forms.CharField(label="Mobile", max_length=100, required=True, widget=forms.TextInput(attrs={
+    phone = forms.CharField(label="Mobile", max_length=100, required=True, widget=forms.TextInput(attrs={
         'class': 'form-control rounded-pill',
         'placeholder': 'Mobile Number'
     }))
 
     class Meta:
-        model = UserProfile
-        fields = ('mobile',)
+        model = User
+        fields = ['email', 'first_name', 'last_name', 'password1', 'password2', 'phone']
 
 
 class ServiceBookingForm(forms.ModelForm):
@@ -72,5 +60,28 @@ class ServiceBookingForm(forms.ModelForm):
     }))
 
     class Meta:
-        model = ServiceBooking
-        fields = ['patient', 'mobile', 'service', 'address', 'state', 'city', 'pin']
+        model = Patient
+        fields = ['patient', 'mobile', 'service', 'address', 'state', 'city', 'pin', 'document']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['city'].queryset = City.objects.none()
+        self.fields['service'].queryset = Vendor.objects.none()
+
+        if 'state' in self.data:
+            try:
+                state_id = int(self.data.get('state'))
+                self.fields['city'].queryset = City.objects.filter(state_id=state_id).order_by('name')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['city'].queryset = self.instance.state.city_set.order_by('name')
+
+        if 'city' in self.data:
+            try:
+                city_id = int(self.data.get('city'))
+                self.fields['service'].queryset = Vendor.objects.filter(city_id=city_id).order_by('name')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['service'].queryset = self.instance.city.vendor_set.order_by('name')

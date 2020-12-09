@@ -34,20 +34,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'livesync',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'src'
+    'src',
 ]
-
-# DJANGO_LIVESYNC = {
-#     'PORT': 8000
-# }
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'livesync.core.middleware.DjangoLiveSyncMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -132,7 +125,10 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+
 # for authentication
-# LOGIN_URL = 'login'
+
+AUTH_USER_MODEL = 'src.User'
+LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'index'

@@ -9,7 +9,14 @@
                 <h4>Service Booking</h4>
             </div>
             <div class="card-body">
-                <form method="post">
+                {% for message in messages %}
+                    <div class="alert alert-dismissible text-white font-weight-bolder"
+                         style="border-radius: 10px; margin-bottom: 1%; background: lightgreen;">
+                        <small class="font-weight-bold">{{ message }}</small>
+                    </div>
+                {% endfor %}
+                <form method="post" id="personForm" enctype="multipart/form-data"
+                      data-cities-url="{% url 'ajax_load_cities' %}" data-services-url="{% url 'ajax_load_services' %}" novalidate>
                     {% csrf_token %}
                     <div class="form-row">
                         <div class="form-group col-md-6 mb-0">
@@ -21,23 +28,26 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6 mb-0">
-                            {{ bookingForm.service|as_crispy_field }}
+                            {{ bookingForm.state|as_crispy_field }}
                         </div>
                         <div class="form-group col-md-6 mb-0">
-                            {{ bookingForm.state|as_crispy_field }}
+                            {{ bookingForm.city|as_crispy_field }}
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6 mb-0">
-                            {{ bookingForm.city|as_crispy_field }}
+                            {{ bookingForm.service|as_crispy_field }}
                         </div>
                         <div class="form-group col-md-6 mb-0">
                             {{ bookingForm.pin|as_crispy_field }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12 mb-0">
+                        <div class="form-group col-md-8 mb-0">
                             {{ bookingForm.address|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-4 mb-0">
+                            {{ bookingForm.document|as_crispy_field }}
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Book Service</button>
@@ -46,4 +56,41 @@
         </div>
     </div>
     <br>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $("#id_state").change(function () {
+            let url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+            let stateId = $(this).val();  // get the selected country ID from the HTML input
+
+            $.ajax({                       // initialize an AJAX request
+                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                data: {
+                    'state': stateId       // add the country id to the GET parameters
+                },
+                success: function (data) {   // `data` is the return of the `load_cities` view function
+                    $("#id_city").html(data);  // replace the contents of the city input with the data that came from the server
+                }
+            });
+
+        });
+    </script>
+
+    <script>
+        $("#id_city").change(function () {
+            let url = $("#personForm").attr("data-services-url");  // get the url of the `load_cities` view
+            let cityId = $(this).val();  // get the selected country ID from the HTML input
+
+            $.ajax({                       // initialize an AJAX request
+                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                data: {
+                    'city': cityId       // add the country id to the GET parameters
+                },
+                success: function (data) {   // `data` is the return of the `load_cities` view function
+                    $("#id_service").html(data);  // replace the contents of the city input with the data that came from the server
+                }
+            });
+
+        });
+    </script>
 {% endblock %}
+

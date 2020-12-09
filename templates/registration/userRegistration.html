@@ -14,10 +14,10 @@
                     {% csrf_token %}
                     <div class="form-row">
                         <div class="form-group col-md-6 mb-0">
-                            {{ form.username|as_crispy_field }}
+                            {{ form.email|as_crispy_field }}
                         </div>
                         <div class="form-group col-md-6 mb-0">
-                            {{ form.email|as_crispy_field }}
+                            {{ form.phone|as_crispy_field }}
                         </div>
                     </div>
                     <div class="form-row">
@@ -29,14 +29,11 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4 mb-0">
+                        <div class="form-group col-md-6 mb-0">
                             {{ form.password1|as_crispy_field }}
                         </div>
-                        <div class="form-group col-md-4 mb-0">
+                        <div class="form-group col-md-6 mb-0">
                             {{ form.password2|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-4 mb-0">
-                            {{ userProfileForm.mobile|as_crispy_field }}
                         </div>
                     </div>
                     <div class="form-row">
