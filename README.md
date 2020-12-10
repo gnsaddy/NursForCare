@@ -1,5 +1,4 @@
-# NursForCare
-NursForCare A.K.A NFC
+# NursForCare (NFC)
 
 ## About NursForCare
 ```About
