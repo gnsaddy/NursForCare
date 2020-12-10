@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import User, Patient, State, City
-from .models import Vendor, AvailableServices, VendorUser
+from .models import Vendor, AvailableServices, VendorUser, Chaperone
 
 
 class ConstantValue(admin.ModelAdmin):
@@ -8,6 +8,7 @@ class ConstantValue(admin.ModelAdmin):
 
 
 admin.site.register(Vendor)
+admin.site.register(Chaperone)
 admin.site.register(AvailableServices)
 admin.site.register(User, ConstantValue)
 admin.site.register(Patient)

@@ -2,16 +2,12 @@ from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from .forms import ExtendedUserCreationForm, ServiceBookingForm
-from .models import City, Vendor
+from .forms import ExtendedUserCreationForm, ServiceBookingForm, ExtendedVendorCreationForm
+from .models import City, Vendor, Chaperone
 
 
 class Index(TemplateView):
     template_name = 'index.html'
-
-
-class VendorRegistration(TemplateView):
-    template_name = 'registration/vendorRegistration.html'
 
 
 def Login(request):
@@ -43,6 +39,19 @@ def userRegistration(request):
     else:
         form = ExtendedUserCreationForm()
     return render(request, 'registration/userRegistration.html', {'form': form})
+
+
+def vendorRegistration(request):
+    if request.method == 'POST':
+        form1 = ExtendedVendorCreationForm(request.POST)
+        if form1.is_valid():
+            form1.save()
+            email = form1.cleaned_data.get('email')
+            messages.success(request, f'Account created for {email}.')
+            return redirect('login')
+    else:
+        form1 = ExtendedVendorCreationForm()
+    return render(request, 'registration/vendorRegistration.html', {'form1': form1})
 
 
 @login_required()

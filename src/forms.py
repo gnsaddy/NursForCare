@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Patient, City, Vendor
+from .models import User, Patient, City, Vendor, Chaperone, VendorUser
 
 
 class ExtendedUserCreationForm(UserCreationForm):
@@ -34,8 +34,49 @@ class ExtendedUserCreationForm(UserCreationForm):
     }))
 
     class Meta:
-        model = User
+        model = Chaperone
         fields = ['email', 'first_name', 'last_name', 'password1', 'password2', 'phone']
+
+
+class ExtendedVendorCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True, label="Email", max_length=100, widget=forms.EmailInput(attrs={
+        'class': 'form-control rounded-pill',
+        'placeholder': 'Email Id'
+    }))
+
+    first_name = forms.CharField(label="First Name", max_length=100, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control rounded-pill',
+        'placeholder': 'First Name'
+    }))
+
+    last_name = forms.CharField(label="Last Name", max_length=100, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control rounded-pill',
+        'placeholder': 'Last Name'
+    }))
+
+    password1 = forms.CharField(max_length=50, label='Password', widget=forms.PasswordInput(attrs={
+        "class": "form-control rounded-pill",
+        "placeholder": "Enter password"
+    }))
+    password2 = forms.CharField(max_length=50, label='Confirm password', widget=forms.PasswordInput(attrs={
+        "class": "form-control rounded-pill",
+        "placeholder": "Confirm password"
+    }))
+
+    phone = forms.CharField(label="Mobile", max_length=100, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control rounded-pill',
+        'placeholder': 'Mobile Number'
+    }))
+
+    vendor_name = forms.CharField(label="Organization Name", max_length=255, required=True,
+                                  widget=forms.TextInput(attrs={
+                                      'class': 'form-control rounded-pill',
+                                      'placeholder': 'Last Name'
+                                  }))
+
+    class Meta:
+        model = VendorUser
+        fields = ['email', 'first_name', 'last_name', 'password1', 'password2', 'phone', 'vendor_name', 'state', 'city']
 
 
 class ServiceBookingForm(forms.ModelForm):

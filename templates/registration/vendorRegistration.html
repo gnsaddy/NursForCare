@@ -2,6 +2,71 @@
 {% load crispy_forms_tags %}
 {% block title %} <title>Vendor | Registration</title> {% endblock %}
 
-{% block container_fluid %}
 
+{% block container_fluid %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4>Vendor Registration</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'vendorRegistration' %}">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form1.email|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form1.phone|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form1.first_name|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form1.last_name|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form1.password1|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form1.password2|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12 mb-0">
+                            {{ form1.vendor_name|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form1.state|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form1.city|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 mb-0">
+                            <button type="submit" class="btn rounded-pill btn-block font-weight-bold"
+                                    style="background: #29a7a6 ">Register Vendor
+                            </button>
+                        </div>
+                        <div class="form-group col-md-6 mx-auto">
+                            <div class="mt-2">
+                                <small class="text-muted">
+                                    Do you need an account? <a class="text-danger" href="{% url 'login' %}">Sign
+                                    In</a>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br><br>
 {% endblock %}

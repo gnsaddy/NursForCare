@@ -56,17 +56,20 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-class VendorUser(AbstractBaseUser):
-    username = None
-    email = models.EmailField(max_length=150, unique=True, db_index=True)
-    is_verified = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    first_name = models.CharField(max_length=100, null=True)
-    last_name = models.CharField(max_length=100, null=True)
-    phone = models.CharField(max_length=12)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class Chaperone(User):
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    object = UserManager()
+
+    def __str__(self):
+        return self.email
+
+
+class VendorUser(User):
+    vendor_name = models.CharField(max_length=255, null=True)
+    state = models.CharField(max_length=100, null=True)
+    city = models.CharField(max_length=100, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
