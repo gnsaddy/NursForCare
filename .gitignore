@@ -3,3 +3,6 @@ Pipfile.lock
 .vscode
 .idea
 .git
+db.sqlite3
+__pycache__
+
