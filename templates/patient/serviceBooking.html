@@ -9,12 +9,16 @@
                 <h4>Service Booking</h4>
             </div>
             <div class="card-body">
-                {% for message in messages %}
-                    <div class="alert alert-dismissible text-white font-weight-bolder"
-                         style="border-radius: 10px; margin-bottom: 1%; background: lightgreen;">
-                        <small class="font-weight-bold">{{ message }}</small>
-                    </div>
-                {% endfor %}
+               {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 <form method="post" id="personForm" enctype="multipart/form-data"
                       data-cities-url="{% url 'ajax_load_cities' %}" data-services-url="{% url 'ajax_load_services' %}" novalidate>
                     {% csrf_token %}

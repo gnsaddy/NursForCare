@@ -8,7 +8,8 @@ from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager, Permi
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, email, password, is_active=True, is_staff=False, is_superuser=False,
+                    is_attendant=False, is_vendor=False, **extra_fields):
         """
         Create and save a User with the given email and password.
         """
@@ -16,6 +17,11 @@ class UserManager(BaseUserManager):
             raise ValueError(_('The Email must be set'))
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
+        user.admin = is_superuser
+        user.active = is_active
+        user.staff = is_staff
+        user.attendant = is_attendant
+        user.vendor = is_vendor
         user.set_password(password)
         user.save()
         return user
@@ -38,9 +44,11 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     username = None
     email = models.EmailField(max_length=150, unique=True, db_index=True)
-    is_verified = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
+    admin = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
+    staff = models.BooleanField(default=False)
+    attendant = models.BooleanField(default=False)
+    vendor = models.BooleanField(default=False)
     first_name = models.CharField(max_length=100, null=True)
     last_name = models.CharField(max_length=100, null=True)
     phone = models.CharField(max_length=12)
@@ -54,6 +62,26 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    @property
+    def is_staff(self):
+        return self.staff
+
+    @property
+    def is_active(self):
+        return self.active
+
+    @property
+    def is_superuser(self):
+        return self.admin
+
+    @property
+    def is_attendant(self):
+        return self.attendant
+
+    @property
+    def is_vendor(self):
+        return self.vendor
 
 
 class Chaperone(User):
@@ -132,7 +160,7 @@ def content_file_name(instance, filename):
 
 
 class Patient(models.Model):
-    holder = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=None)
+    holder = models.ForeignKey(Chaperone, on_delete=models.CASCADE, null=True, default=None)
     patient = models.CharField(max_length=100)
     mobile = models.IntegerField()
     address = models.CharField(max_length=500)

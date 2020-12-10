@@ -16,39 +16,39 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-27<nav class="sb-topnav navbar navbar-expand navbar-dark" style="background: #29a7a6 !important;">
+<nav class="sb-topnav navbar navbar-expand navbar-dark" style="background: #29a7a6 !important;">
     <a class="navbar-brand" href="{% url 'index' %}"><i class="fas fa-hand-holding-heart pb-1"></i> NursForCare</a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
     </button>
 
     <!-- Navbar Search-->
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <div class="input-group">
-            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"
-                   aria-describedby="basic-addon2"/>
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
-            </div>
-        </div>
-    </form>
-    {% if request.user.is_authenticated %}
-        <div class="navbar-text font-weight-bold ml-2">{{ user.first_name }}</div>
-    {% endif %}
+    <div class="ml-auto">
+        {% if request.user.is_vendor %}
+            <div class="font-weight-bold mr-3">{{ user.first_name }} {{ user.last_name }}</div>
+        {% endif %}
+        {% if request.user.is_attendant %}
+            <div class="font-weight-bold mr-3">{{ user.first_name }} {{ user.last_name }}</div>
+        {% endif %}
+        {% if request.user.is_superuser %}
+            <div class="font-weight-bold mr-3">{{ user.first_name }} {{ user.last_name }}</div>
+        {% endif %}
+    </div>
     <!-- Navbar-->
-    <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false"><i class="fas fa-user" style="color: palevioletred;"></i></a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                {% if request.user.is_authenticated %}
-                    <a class="dropdown-item" href="#">Manage Profile</a>
-                    <a class="dropdown-item" href={% url 'logout' %}>Logout</a>
-                {% else %}
-                    <a class="dropdown-item" href={% url 'login' %}>Login</a>
-                {% endif %}
-            </div>
-        </li>
-    </ul>
+    <div class="navbar-nav ml-auto ml-md-0">
+        {% if request.user.is_authenticated %}
+            <a class="" href={% url 'logout' %}>
+                <button class="btn rounded-pill font-weight-bolder"
+                        style="background-color: palevioletred; color: black;">Logout
+                </button>
+            </a>
+        {% else %}
+            <a class="" href={% url 'login' %}>
+                <button class="btn rounded-pill font-weight-bolder"
+                        style="background-color: palevioletred; color: black;">Login
+                </button>
+            </a>
+        {% endif %}
+    </div>
 </nav>
 <div id="layoutSidenav">
     <div id="layoutSidenav_nav">
@@ -95,30 +95,52 @@
                                 <i class="fas fa-syringe" style="color:#29a7a6;"></i>&nbsp;Vaccination
                             </a>
                             <a class="nav-link" href="#">
-                                <img src="{% static 'img/elder.PNG' %}" alt="elder" width="22" height="22" style="color:#29a7a6;">&nbsp;Elder care
+                                <img src="{% static 'img/elder.PNG' %}" alt="elder" width="22" height="22"
+                                     style="color:#29a7a6;">&nbsp;Elder care
                             </a>
                             <a class="nav-link" href="#">
                                 <i class="fas fa-hospital-user" style="color:#29a7a6;"></i>&nbsp;consultation
                             </a>
-                             <a class="nav-link" href="#">
+                            <a class="nav-link" href="#">
                                 <i class="fas fa-pills" style="color:#29a7a6;"></i>&nbsp;Medicine
                             </a>
-                             <a class="nav-link" href="#">
+                            <a class="nav-link" href="#">
                                 <i class="fas fa-ambulance" style="color:#29a7a6;"></i>&nbsp;Ambulance
                             </a>
                         </nav>
                     </div>
 
-                    {% if request.user.is_authenticated %}
-                        <div class="sb-sidenav-menu-heading">Profile & Service</div>
+                    {% if request.user.is_vendor %}
+                        <div class="sb-sidenav-menu-heading">Registration</div>
                         <a class="nav-link" href={% url 'serviceBooking' %}>
                             <div><i class="fas fa-pump-medical" style="color: palevioletred;"></i></div>
-                            &nbsp;Booking Service
+                            &nbsp Register Service
                         </a>
+                        <a class="nav-link" href={% url 'serviceBooking' %}>
+                            <div><i class="fas fa-concierge-bell" style="color: palevioletred;"></i></div>
+                            &nbsp Service Status
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Vendor's Profile</div>
                         <a class="nav-link" href={% url 'index' %}>
                             <div><i class="fas fa-user" style="color: palevioletred;"></i></div>
                             &nbsp;Manage Profile
                         </a>
+                    {% elif request.user.is_attendant %}
+                        <div class="sb-sidenav-menu-heading">Registration</div>
+                        <a class="nav-link" href={% url 'serviceBooking' %}>
+                            <div><i class="fas fa-pump-medical" style="color: palevioletred;"></i></div>
+                            &nbsp Patient Registration
+                        </a>
+                        <a class="nav-link" href={% url 'serviceBooking' %}>
+                            <div><i class="fas fa-concierge-bell" style="color: palevioletred;"></i></div>
+                            &nbsp Patient Status
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Patient's Profile</div>
+                        <a class="nav-link" href={% url 'index' %}>
+                            <div><i class="fas fa-user" style="color: palevioletred;"></i></div>
+                            &nbsp;Manage Profile
+                        </a>
+
                     {% else %}
                         <div class="sb-sidenav-menu-heading">Booking & Profile</div>
                         <a class="nav-link" href={% url 'login' %}>

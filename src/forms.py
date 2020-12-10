@@ -1,7 +1,19 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+
 from .models import User, Patient, City, Vendor, Chaperone, VendorUser
 
+
+class CheckboxInput(forms.CheckboxInput):
+    def __init__(self, default=False, *args, **kwargs):
+        super(CheckboxInput, self).__init__(*args, **kwargs)
+        self.default = default
+
+    def value_from_datadict(self, data, files, name):
+        if name not in data:
+            return self.default
+        return super(CheckboxInput, self).value_from_datadict(data, files, name)
+    
 
 class ExtendedUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, label="Email", max_length=100, widget=forms.EmailInput(attrs={
@@ -33,9 +45,11 @@ class ExtendedUserCreationForm(UserCreationForm):
         'placeholder': 'Mobile Number'
     }))
 
+    attendant = forms.BooleanField(widget=CheckboxInput(default=True), required=False)
+
     class Meta:
         model = Chaperone
-        fields = ['email', 'first_name', 'last_name', 'password1', 'password2', 'phone']
+        fields = ['email', 'first_name', 'last_name', 'password1', 'password2', 'phone', 'attendant']
 
 
 class ExtendedVendorCreationForm(UserCreationForm):
@@ -74,9 +88,13 @@ class ExtendedVendorCreationForm(UserCreationForm):
                                       'placeholder': 'Last Name'
                                   }))
 
+    # vendor = forms.BooleanField(initial=True)
+    vendor = forms.BooleanField(widget=CheckboxInput(default=True), required=False)
+
     class Meta:
         model = VendorUser
-        fields = ['email', 'first_name', 'last_name', 'password1', 'password2', 'phone', 'vendor_name', 'state', 'city']
+        fields = ['email', 'first_name', 'last_name', 'password1', 'password2', 'phone', 'vendor_name', 'state', 'city',
+                  'vendor']
 
 
 class ServiceBookingForm(forms.ModelForm):

@@ -20,9 +20,9 @@ def Login(request):
             auth.login(request, user)
             return redirect('/')
         else:
-            messages.warning(request,
-                             'Please enter a correct username and password. Note that both fields may be '
-                             'case-sensitive.')
+            messages.error(request,
+                           'Please enter a correct username and password. Note that both fields may be '
+                           'case-sensitive.')
             return redirect('login')
     else:
         return render(request, 'registration/login.html')
@@ -33,6 +33,8 @@ def userRegistration(request):
         form = ExtendedUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            ven = form.cleaned_data.get('user')
+            print(ven)
             email = form.cleaned_data.get('email')
             messages.success(request, f'Account created for {email}.')
             return redirect('login')
@@ -45,8 +47,11 @@ def vendorRegistration(request):
     if request.method == 'POST':
         form1 = ExtendedVendorCreationForm(request.POST)
         if form1.is_valid():
+            ven = form1.cleaned_data.get('vendor')
+            print(ven)
             form1.save()
             email = form1.cleaned_data.get('email')
+
             messages.success(request, f'Account created for {email}.')
             return redirect('login')
     else:
@@ -68,7 +73,7 @@ def bookingService(request):
             return redirect('serviceBooking')
     else:
         bookingForm = ServiceBookingForm()
-    return render(request, 'booking/bookService.html', {'bookingForm': bookingForm})
+    return render(request, '../templates/patient/serviceBooking.html', {'bookingForm': bookingForm})
 
 
 def load_cities(request):
