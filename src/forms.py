@@ -88,7 +88,6 @@ class ExtendedVendorCreationForm(UserCreationForm):
                                       'placeholder': 'Last Name'
                                   }))
 
-    # vendor = forms.BooleanField(initial=True)
     vendor = forms.BooleanField(widget=CheckboxInput(default=True), required=False)
 
     class Meta:
@@ -97,6 +96,7 @@ class ExtendedVendorCreationForm(UserCreationForm):
                   'vendor']
 
 
+# patient service booking
 class ServiceBookingForm(forms.ModelForm):
     patient = forms.CharField(label="Patient Name", max_length=100, required=True, widget=forms.TextInput(attrs={
         'class': 'form-control ',
@@ -146,6 +146,7 @@ class ServiceBookingForm(forms.ModelForm):
             self.fields['service'].queryset = self.instance.city.vendor_set.order_by('name')
 
 
+# Vendor's organization registration
 class VendorServiceForm(forms.ModelForm):
     name = forms.CharField(label="Organization Name", max_length=255, required=True, widget=forms.TextInput(attrs={
         'class': 'form-control ',
@@ -167,6 +168,21 @@ class VendorServiceForm(forms.ModelForm):
         'placeholder': 'Pin-code (Zip)'
     }))
 
+    available = forms.BooleanField(label="Service Availability", required=True)
+
     class Meta:
         model = Vendor
         fields = ['name', 'service', 'available', 'mobile', 'address', 'state', 'city', 'pin', 'document']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['city'].queryset = City.objects.none()
+
+        if 'state' in self.data:
+            try:
+                state_id = int(self.data.get('state'))
+                self.fields['city'].queryset = City.objects.filter(state_id=state_id).order_by('name')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['city'].queryset = self.instance.state.city_set.order_by('name')

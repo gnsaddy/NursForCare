@@ -139,7 +139,7 @@ def content_file_name(instance, filename):
 class Vendor(models.Model):
     name = models.CharField(max_length=255, db_index=True, null=True)
     service = models.ForeignKey(AvailableServices, on_delete=models.CASCADE, null=True)
-    available = models.BooleanField(default=False)
+    available = models.BooleanField(default=False, null=True)
     mobile = models.CharField(max_length=11, null=True)
     address = models.CharField(max_length=255, null=True)
     pin = models.CharField(max_length=10, null=True)

@@ -102,13 +102,13 @@ def vendorService(request):
             instance = vendorForm.save(commit=False)
             instance.holder = request.user
             instance.save()
-            username = vendorForm.cleaned_data.get('patient')
+            username = vendorForm.cleaned_data.get('name')
             messages.success(request, f'Organization registration done successfully for {username}.')
             messages.info(request, f'Please wait for Organization verification!!!')
-            return redirect('serviceBooking')
+            return redirect('vendorService')
     else:
-        bookingForm = VendorServiceForm()
-    return render(request, 'vendor/vendorService.html')
+        vendorForm = VendorServiceForm()
+    return render(request, 'vendor/vendorService.html', {'vendorForm': vendorForm})
 
 
 def vendorStatus(request):
