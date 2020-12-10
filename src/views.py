@@ -2,7 +2,7 @@ from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from .forms import ExtendedUserCreationForm, VendorServiceForm, ExtendedVendorCreationForm
+from .forms import ExtendedUserCreationForm, VendorServiceForm, ExtendedVendorCreationForm, ServiceBookingForm
 from .models import City, Vendor, Chaperone
 
 
@@ -67,7 +67,7 @@ def vendorRegistration(request):
 @login_required()
 def bookingService(request):
     if request.method == 'POST':
-        bookingForm = VendorServiceForm(request.POST, request.FILES)
+        bookingForm = ServiceBookingForm(request.POST, request.FILES)
 
         if bookingForm.is_valid():
             instance = bookingForm.save(commit=False)
@@ -77,7 +77,7 @@ def bookingService(request):
             messages.success(request, f'Booking done successfully for {username}.')
             return redirect('serviceBooking')
     else:
-        bookingForm = VendorServiceForm()
+        bookingForm = ServiceBookingForm()
     return render(request, 'patient/serviceBooking.html', {'bookingForm': bookingForm})
 
 
@@ -96,14 +96,15 @@ def vendorProfile(request):
 
 def vendorService(request):
     if request.method == 'POST':
-        bookingForm = VendorServiceForm(request.POST, request.FILES)
+        vendorForm = VendorServiceForm(request.POST, request.FILES)
 
-        if bookingForm.is_valid():
-            instance = bookingForm.save(commit=False)
+        if vendorForm.is_valid():
+            instance = vendorForm.save(commit=False)
             instance.holder = request.user
             instance.save()
-            username = bookingForm.cleaned_data.get('patient')
-            messages.success(request, f'Booking done successfully for {username}.')
+            username = vendorForm.cleaned_data.get('patient')
+            messages.success(request, f'Organization registration done successfully for {username}.')
+            messages.info(request, f'Please wait for Organization verification!!!')
             return redirect('serviceBooking')
     else:
         bookingForm = VendorServiceForm()
