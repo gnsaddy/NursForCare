@@ -163,7 +163,7 @@ def content_file_name(instance, filename):
 
 
 class Patient(models.Model):
-    holder = models.ForeignKey(Chaperone, on_delete=models.CASCADE, null=True, default=None)
+    holder = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=None)
     patient = models.CharField(max_length=100)
     mobile = models.IntegerField()
     address = models.CharField(max_length=500)

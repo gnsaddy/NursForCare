@@ -168,7 +168,7 @@ class VendorServiceForm(forms.ModelForm):
         'placeholder': 'Pin-code (Zip)'
     }))
 
-    available = forms.BooleanField(label="Service Availability", required=True)
+    available = forms.BooleanField(label="Service Availability", required=False)
 
     class Meta:
         model = Vendor
