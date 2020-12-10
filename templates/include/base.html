@@ -112,16 +112,16 @@
 
                     {% if request.user.is_vendor %}
                         <div class="sb-sidenav-menu-heading">Registration</div>
-                        <a class="nav-link" href={% url 'serviceBooking' %}>
+                        <a class="nav-link" href={% url 'vendorService' %}>
                             <div><i class="fas fa-pump-medical" style="color: palevioletred;"></i></div>
                             &nbsp Register Service
                         </a>
-                        <a class="nav-link" href={% url 'serviceBooking' %}>
+                        <a class="nav-link" href={% url 'vendorStatus' %}>
                             <div><i class="fas fa-concierge-bell" style="color: palevioletred;"></i></div>
                             &nbsp Service Status
                         </a>
                         <div class="sb-sidenav-menu-heading">Vendor's Profile</div>
-                        <a class="nav-link" href={% url 'index' %}>
+                        <a class="nav-link" href={% url 'vendorProfile' %}>
                             <div><i class="fas fa-user" style="color: palevioletred;"></i></div>
                             &nbsp;Manage Profile
                         </a>
@@ -131,7 +131,7 @@
                             <div><i class="fas fa-pump-medical" style="color: palevioletred;"></i></div>
                             &nbsp Patient Registration
                         </a>
-                        <a class="nav-link" href={% url 'serviceBooking' %}>
+                        <a class="nav-link" href={% url 'patientStatus' %}>
                             <div><i class="fas fa-concierge-bell" style="color: palevioletred;"></i></div>
                             &nbsp Patient Status
                         </a>

@@ -12,6 +12,9 @@ urlpatterns = [
     path('vendorRegistration/', views.vendorRegistration, name="vendorRegistration"),
     path('patientProfile/', views.patientProfile, name="patientProfile"),
     path('patientStatus/', views.patientStatus, name="patientStatus"),
+    path('vendorProfile/', views.vendorProfile, name="vendorProfile"),
+    path('vendorService/', views.vendorService, name="vendorService"),
+    path('vendorStatus/', views.vendorStatus, name="vendorStatus"),
     path('ajax/load-cities/', views.load_cities, name='ajax_load_cities'),
     path('ajax/load-services/', views.load_services, name='ajax_load_services'),
 ]
