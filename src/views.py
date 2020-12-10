@@ -86,6 +86,22 @@ def patientProfile(request):
     return render(request, 'patient/patientProfile.html')
 
 
+def patientStatus(request):
+    return render(request, 'patient/patientStatus.html')
+
+
+def vendorProfile(request):
+    return render(request, 'vendor/vendorProfile.html')
+
+
+def vendorService(request):
+    return render(request, 'vendor/vendorService.html')
+
+
+def vendorStatus(request):
+    return render(request, 'vendor/serviceStatus.html')
+
+
 def load_cities(request):
     state_id = request.GET.get('state')
     cities = City.objects.filter(state_id=state_id).order_by('name')

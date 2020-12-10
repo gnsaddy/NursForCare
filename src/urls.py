@@ -11,6 +11,7 @@ urlpatterns = [
     path('serviceBooking/', views.bookingService, name='serviceBooking'),
     path('vendorRegistration/', views.vendorRegistration, name="vendorRegistration"),
     path('patientProfile/', views.patientProfile, name="patientProfile"),
+    path('patientStatus/', views.patientStatus, name="patientStatus"),
     path('ajax/load-cities/', views.load_cities, name='ajax_load_cities'),
     path('ajax/load-services/', views.load_services, name='ajax_load_services'),
 ]
