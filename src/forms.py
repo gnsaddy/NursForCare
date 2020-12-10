@@ -13,7 +13,7 @@ class CheckboxInput(forms.CheckboxInput):
         if name not in data:
             return self.default
         return super(CheckboxInput, self).value_from_datadict(data, files, name)
-    
+
 
 class ExtendedUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, label="Email", max_length=100, widget=forms.EmailInput(attrs={
@@ -144,3 +144,29 @@ class ServiceBookingForm(forms.ModelForm):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
             self.fields['service'].queryset = self.instance.city.vendor_set.order_by('name')
+
+
+class VendorServiceForm(forms.ModelForm):
+    name = forms.CharField(label="Organization Name", max_length=255, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control ',
+        'placeholder': 'Organization Name'
+    }))
+
+    mobile = forms.CharField(label="Mobile", max_length=12, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control ',
+        'placeholder': 'Mobile Number'
+    }))
+
+    address = forms.CharField(label="Address", max_length=500, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control ',
+        'placeholder': 'Address'
+    }))
+
+    pin = forms.CharField(label="Pincode", max_length=10, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Pin-code (Zip)'
+    }))
+
+    class Meta:
+        model = Vendor
+        fields = ['name', 'service', 'available', 'mobile', 'address', 'state', 'city', 'pin', 'document']
