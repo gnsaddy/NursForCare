@@ -28,6 +28,11 @@ def Login(request):
         return render(request, 'registration/login.html')
 
 
+def logout(request):
+    auth.logout(request)
+    return redirect('index')
+
+
 def userRegistration(request):
     if request.method == 'POST':
         form = ExtendedUserCreationForm(request.POST)
@@ -73,7 +78,12 @@ def bookingService(request):
             return redirect('serviceBooking')
     else:
         bookingForm = ServiceBookingForm()
-    return render(request, '../templates/patient/serviceBooking.html', {'bookingForm': bookingForm})
+    return render(request, 'patient/serviceBooking.html', {'bookingForm': bookingForm})
+
+
+@login_required()
+def patientProfile(request):
+    return render(request, 'patient/patientProfile.html')
 
 
 def load_cities(request):
@@ -87,8 +97,3 @@ def load_services(request):
     services = Vendor.objects.filter(city_id=city_id).order_by('name')
 
     return render(request, 'booking/city_dropdown_list_options.html', {'services': services})
-
-
-def logout(request):
-    auth.logout(request)
-    return redirect('index')
