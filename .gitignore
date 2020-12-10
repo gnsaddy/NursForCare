@@ -4,5 +4,4 @@ Pipfile.lock
 .idea
 .git
 db.sqlite3
-__pycache__
 
