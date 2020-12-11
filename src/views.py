@@ -2,7 +2,8 @@ from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from .forms import ExtendedUserCreationForm, VendorServiceForm, ExtendedVendorCreationForm, ServiceBookingForm
+from .forms import ExtendedUserCreationForm, VendorServiceForm, ExtendedVendorCreationForm, ServiceBookingForm, \
+    AddStateForm, AddCityForm
 from .models import City, Vendor, Chaperone, State
 
 
@@ -86,10 +87,12 @@ def patientProfile(request):
     return render(request, 'patient/patientProfile.html')
 
 
+@login_required()
 def patientStatus(request):
     return render(request, 'patient/patientStatus.html')
 
 
+@login_required()
 def vendorProfile(request):
     return render(request, 'vendor/vendorProfile.html')
 
@@ -111,12 +114,40 @@ def vendorService(request):
     return render(request, 'vendor/vendorService.html', {'vendorForm': vendorForm})
 
 
+@login_required()
 def vendorStatus(request):
     return render(request, 'vendor/serviceStatus.html')
 
 
+@login_required()
 def registerState(request):
-    return render(request, 'vendor/addStateCity.html')
+    global ctForm
+    if request.method == 'POST':
+        stForm = AddStateForm(request.POST)
+        if stForm.is_valid():
+            stForm.save()
+            name = stForm.cleaned_data.get('name')
+            messages.success(request, f'{name} state added successfully.')
+            return redirect('registerState')
+    else:
+        stForm = AddStateForm()
+        ctForm = AddCityForm()
+
+    return render(request, 'vendor/addStateCity.html', {'stForm': stForm, 'ctForm': ctForm})
+
+
+@login_required()
+def registerCity(request):
+    if request.method == 'POST':
+        ctForm = AddCityForm(request.POST)
+        if ctForm.is_valid():
+            ctForm.save()
+            name = ctForm.cleaned_data.get('name')
+            messages.success(request, f'{name} city added successfully.')
+            return redirect('vendorService')
+        else:
+            ctForm = AddCityForm()
+    return render(request, 'vendor/addCity.html', {'ctForm': ctForm})
 
 
 def load_cities(request):
@@ -130,3 +161,4 @@ def load_services(request):
     services = Vendor.objects.filter(city_id=city_id).order_by('name')
 
     return render(request, 'booking/city_dropdown_list_options.html', {'services': services})
+

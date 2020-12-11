@@ -6,6 +6,16 @@
 
 {% block container_fluid %}
     <div class="container p-1">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         <div class="container p-1">
             <div class="row mx-auto">
                 <div class="col-md-4">
@@ -34,15 +44,20 @@
                         <h3 class="card-text">State Registration</h3>
                     </div>
                     <div class="card-body">
-                        <form action="addState">
-                            <div class="form-group">
-                                <label for="state">State</label>
-                                <input type="text" class="form-control" name="st" id="state" placeholder="State Name"
-                                       required>
+                        <form method="post" action="{% url 'registerState' %}">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-12 mb-0">
+                                    {{ stForm.name|as_crispy_field }}
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block btn-md rounded-pill font-weight-bolder"
-                                    style="color: black;">Add State
-                            </button>
+                            <div class="form-row">
+                                <div class="form-group col-md-12 mb-0">
+                                    <button type="submit" class="btn rounded-pill btn-block font-weight-bold"
+                                            style="background: #29a7a6 ">Add State
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -53,12 +68,7 @@
                         <h3 class="card-text">City Registration</h3>
                     </div>
                     <div class="card-body">
-                        <form>
-
-                            <button class="btn btn-primary btn-block btn-md rounded-pill font-weight-bolder"
-                                    style="color: black;">Add City
-                            </button>
-                        </form>
+                        {% include 'vendor/addCity.html' %}
                     </div>
                 </div>
             </div>

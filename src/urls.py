@@ -16,8 +16,10 @@ urlpatterns = [
     path('vendorService/', views.vendorService, name="vendorService"),
     path('vendorStatus/', views.vendorStatus, name="vendorStatus"),
     path('registerState/', views.registerState, name="registerState"),
+    path('registerCity/', views.registerCity, name="registerCity"),
     path('ajax/load-cities/', views.load_cities, name='ajax_load_cities'),
     path('ajax/load-services/', views.load_services, name='ajax_load_services'),
+
 ]
 
 if settings.DEBUG:

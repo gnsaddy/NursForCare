@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import User, Patient, City, Vendor, Chaperone, VendorUser
+from .models import User, Patient, City, Vendor, Chaperone, VendorUser, State
 
 
 class CheckboxInput(forms.CheckboxInput):
@@ -186,3 +186,25 @@ class VendorServiceForm(forms.ModelForm):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
             self.fields['city'].queryset = self.instance.state.city_set.order_by('name')
+
+
+class AddStateForm(forms.ModelForm):
+    name = forms.CharField(label="State Name", max_length=100, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control ',
+        'placeholder': 'State Name'
+    }))
+
+    class Meta:
+        model = State
+        fields = ['name']
+
+
+class AddCityForm(forms.ModelForm):
+    name = forms.CharField(label="City Name", max_length=100, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control ',
+        'placeholder': 'City Name'
+    }))
+
+    class Meta:
+        model = City
+        fields = ['state', 'name']

@@ -1,0 +1,21 @@
+{% load crispy_forms_tags %}
+<form method="post" action="{% url 'registerCity' %}">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            {{ ctForm.state|as_crispy_field }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            {{ ctForm.name|as_crispy_field }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            <button type="submit" class="btn rounded-pill btn-block font-weight-bold"
+                    style="background: #29a7a6 ">Add City
+            </button>
+        </div>
+    </div>
+</form>
