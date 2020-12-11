@@ -109,7 +109,7 @@ class VendorUser(User):
 
 
 class State(models.Model):
-    name = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=50, null=True, unique=True)
 
     def __str__(self):
         return self.name
@@ -117,7 +117,7 @@ class State(models.Model):
 
 class City(models.Model):
     state = models.ForeignKey(State, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name

@@ -1,7 +1,7 @@
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from .forms import ExtendedUserCreationForm, VendorServiceForm, ExtendedVendorCreationForm, ServiceBookingForm, \
     AddStateForm, AddCityForm
 from .models import City, Vendor, Chaperone, State
@@ -122,6 +122,9 @@ def vendorStatus(request):
 @login_required()
 def registerState(request):
     ctForm = AddCityForm()
+    context = State.objects.all()
+    contextCity = City.objects.all()
+
     if request.method == 'POST':
         stForm = AddStateForm(request.POST)
         if stForm.is_valid():
@@ -129,10 +132,14 @@ def registerState(request):
             name = stForm.cleaned_data.get('name')
             messages.success(request, f'{name} state added successfully.')
             return redirect('registerState')
+        else:
+            messages.error(request, f'State is already registered.')
+
     else:
         stForm = AddStateForm()
 
-    return render(request, 'vendor/addStateCity.html', {'stForm': stForm, 'ctForm': ctForm})
+    return render(request, 'vendor/addStateCity.html',
+                  {'stForm': stForm, 'ctForm': ctForm, "viewState": context, "viewCity": contextCity})
 
 
 @login_required()
@@ -143,7 +150,9 @@ def registerCity(request):
             ctForm.save()
             name = ctForm.cleaned_data.get('name')
             messages.success(request, f'{name} city added successfully.')
-            return redirect('vendorService')
+            return redirect('registerState')
+        else:
+            messages.error(request, f'City is already registered.')
     else:
         ctForm = AddCityForm()
     return render(request, 'vendor/addCity.html', {'ctForm': ctForm})
