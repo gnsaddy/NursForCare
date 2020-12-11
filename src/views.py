@@ -116,8 +116,11 @@ def vendorStatus(request):
 
 
 class RegisterState(TemplateView):
-    template_name = "vendor/addStateCity.html"
-
+    def get(self, request, **kwargs):
+        st = request.GET.get('st')
+        querySet = State(name=st)
+        querySet.save()
+        return redirect('vendorService')
 
 
 def load_cities(request):
