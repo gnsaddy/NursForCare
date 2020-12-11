@@ -1,0 +1,68 @@
+{% extends "include/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    <title>State | City | Register</title>
+{% endblock title %}
+
+{% block container_fluid %}
+    <div class="container p-1">
+        <div class="container p-1">
+            <div class="row mx-auto">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Available State</h4>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 offset-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Available City</h4>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row mx-auto ">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-text">State Registration</h3>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <input type="text" class="form-control" name="state" id="state" placeholder="State Name"
+                                       required>
+                            </div>
+                            <button class="btn btn-primary btn-block btn-md rounded-pill font-weight-bolder"
+                                    style="color: black;">Add State
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 offset-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-text">City Registration</h3>
+                    </div>
+                    <div class="card-body">
+                        <form>
+
+                            <button class="btn btn-primary btn-block btn-md rounded-pill font-weight-bolder"
+                                    style="color: black;">Add City
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

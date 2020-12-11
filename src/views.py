@@ -115,6 +115,10 @@ def vendorStatus(request):
     return render(request, 'vendor/serviceStatus.html')
 
 
+def registerState(request):
+    return render(request, 'vendor/addStateCity.html')
+
+
 def load_cities(request):
     state_id = request.GET.get('state')
     cities = City.objects.filter(state_id=state_id).order_by('name')
