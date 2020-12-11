@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .forms import ExtendedUserCreationForm, VendorServiceForm, ExtendedVendorCreationForm, ServiceBookingForm
-from .models import City, Vendor, Chaperone
+from .models import City, Vendor, Chaperone, State
 
 
 class Index(TemplateView):
@@ -115,8 +115,9 @@ def vendorStatus(request):
     return render(request, 'vendor/serviceStatus.html')
 
 
-def registerState(request):
-    return render(request, 'vendor/addStateCity.html')
+class RegisterState(TemplateView):
+    template_name = "vendor/addStateCity.html"
+
 
 
 def load_cities(request):

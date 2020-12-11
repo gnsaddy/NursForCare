@@ -34,13 +34,13 @@
                         <h3 class="card-text">State Registration</h3>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form action="{% url 'registerState' %}">
                             <div class="form-group">
                                 <label for="state">State</label>
-                                <input type="text" class="form-control" name="state" id="state" placeholder="State Name"
+                                <input type="text" class="form-control" name="st" id="state" placeholder="State Name"
                                        required>
                             </div>
-                            <button class="btn btn-primary btn-block btn-md rounded-pill font-weight-bolder"
+                            <button type="submit" class="btn btn-primary btn-block btn-md rounded-pill font-weight-bolder"
                                     style="color: black;">Add State
                             </button>
                         </form>
