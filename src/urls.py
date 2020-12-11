@@ -15,7 +15,7 @@ urlpatterns = [
     path('vendorProfile/', views.vendorProfile, name="vendorProfile"),
     path('vendorService/', views.vendorService, name="vendorService"),
     path('vendorStatus/', views.vendorStatus, name="vendorStatus"),
-    path('registerState/', views.RegisterState.as_view(), name="registerState"),
+    path('registerState/', views.registerState, name="registerState"),
     path('ajax/load-cities/', views.load_cities, name='ajax_load_cities'),
     path('ajax/load-services/', views.load_services, name='ajax_load_services'),
 ]

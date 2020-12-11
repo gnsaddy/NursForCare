@@ -85,7 +85,7 @@ class ExtendedVendorCreationForm(UserCreationForm):
     vendor_name = forms.CharField(label="Organization Name", max_length=255, required=True,
                                   widget=forms.TextInput(attrs={
                                       'class': 'form-control rounded-pill',
-                                      'placeholder': 'Last Name'
+                                      'placeholder': 'Organization Name'
                                   }))
 
     vendor = forms.BooleanField(widget=CheckboxInput(default=True), required=False)
