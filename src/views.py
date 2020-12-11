@@ -121,7 +121,7 @@ def vendorStatus(request):
 
 @login_required()
 def registerState(request):
-    global ctForm
+    ctForm = AddCityForm()
     if request.method == 'POST':
         stForm = AddStateForm(request.POST)
         if stForm.is_valid():
@@ -131,7 +131,6 @@ def registerState(request):
             return redirect('registerState')
     else:
         stForm = AddStateForm()
-        ctForm = AddCityForm()
 
     return render(request, 'vendor/addStateCity.html', {'stForm': stForm, 'ctForm': ctForm})
 
@@ -145,8 +144,8 @@ def registerCity(request):
             name = ctForm.cleaned_data.get('name')
             messages.success(request, f'{name} city added successfully.')
             return redirect('vendorService')
-        else:
-            ctForm = AddCityForm()
+    else:
+        ctForm = AddCityForm()
     return render(request, 'vendor/addCity.html', {'ctForm': ctForm})
 
 
@@ -161,4 +160,3 @@ def load_services(request):
     services = Vendor.objects.filter(city_id=city_id).order_by('name')
 
     return render(request, 'booking/city_dropdown_list_options.html', {'services': services})
-

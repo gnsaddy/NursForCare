@@ -21,16 +21,24 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h4>Available State</h4>
+                            <h4>State Registration</h4>
                             <hr>
+                            <button type="button" class="btn btn-success rounded-pill btn-block" data-toggle="modal"
+                                    data-target="#addState">
+                                Add State
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 offset-2">
                     <div class="card">
                         <div class="card-body">
-                            <h4>Available City</h4>
+                            <h4>City Registration</h4>
                             <hr>
+                            <button type="button" class="btn btn-success btn-block rounded-pill" data-toggle="modal"
+                                    data-target="#addCity">
+                                Add City
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -41,38 +49,73 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-text">State Registration</h3>
+                        <h3 class="card-text">Registered State's</h3>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{% url 'registerState' %}">
-                            {% csrf_token %}
-                            <div class="form-row">
-                                <div class="form-group col-md-12 mb-0">
-                                    {{ stForm.name|as_crispy_field }}
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12 mb-0">
-                                    <button type="submit" class="btn rounded-pill btn-block font-weight-bold"
-                                            style="background: #29a7a6 ">Add State
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+
                     </div>
                 </div>
             </div>
             <div class="col-md-4 offset-2">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-text">City Registration</h3>
+                        <h3 class="card-text">Registered Cities</h3>
                     </div>
                     <div class="card-body">
-                        {% include 'vendor/addCity.html' %}
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- City Modal -->
+    <div class="modal fade" id="addCity">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Modal Heading</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    {% include 'vendor/addCity.html' %}
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- State Modal -->
+    <div class="modal fade" id="addState">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Modal Heading</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    {% include 'vendor/addState.html' %}
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 {% endblock %}

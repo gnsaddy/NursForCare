@@ -1,0 +1,16 @@
+{% load crispy_forms_tags %}
+<form method="post" action="{% url 'registerState' %}">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            {{ stForm.name|as_crispy_field }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            <button type="submit" class="btn rounded-pill btn-block font-weight-bold"
+                    style="background: #29a7a6 ">Add State
+            </button>
+        </div>
+    </div>
+</form>
