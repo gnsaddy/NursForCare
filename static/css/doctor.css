@@ -1,0 +1,39 @@
+.svg-animation-container-doctor {
+  width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  padding: 24px;
+  margin: 0 auto;
+  border-radius: 15%;
+  height: 500px;
+}
+
+.svg-animation-container-doctor svg {
+  width: 100%;
+}
+
+#Vector_161 {
+    fill: red;
+    animation: hbounce 3s infinite ease-in-out alternate;
+}
+
+@keyframes hbounce {
+  0% {
+    transform: translateY(60px);
+  }
+  100% {
+    transform: translateY(-30px);
+  }
+}
+
+#Vector_114, #Vector_112, #Vector_104, #Vector_157 {
+    animation: bounce 1s infinite ease-in-out alternate;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(1px);
+  }
+  100% {
+    transform: translateY(-2px);
+  }
+}

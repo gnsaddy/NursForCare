@@ -134,6 +134,7 @@ def registerState(request):
             return redirect('registerState')
         else:
             messages.error(request, f'State is already registered.')
+            return redirect('registerState')
 
     else:
         stForm = AddStateForm()
@@ -153,6 +154,7 @@ def registerCity(request):
             return redirect('registerState')
         else:
             messages.error(request, f'City is already registered.')
+            return redirect('registerState')
     else:
         ctForm = AddCityForm()
     return render(request, 'vendor/addCity.html', {'ctForm': ctForm})
