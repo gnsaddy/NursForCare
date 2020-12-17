@@ -13,16 +13,17 @@
 
 #Vector_161 {
     fill: red;
-    animation: hbounce 3s infinite ease-in-out alternate;
+    animation: hbounce 1.5s infinite alternate;
 }
 
 @keyframes hbounce {
-  0% {
-    transform: translateY(60px);
-  }
-  100% {
-    transform: translateY(-30px);
-  }
+  /*0% {*/
+  /*  transform: translateX(60px);*/
+  /*}*/
+  /*100% {*/
+  /*  transform: translateX(-30px);*/
+  /*}*/
+  to { transform: scale(0.9); }
 }
 
 #Vector_114, #Vector_112, #Vector_104, #Vector_157 {
@@ -30,10 +31,11 @@
 }
 
 @keyframes bounce {
-  0% {
-    transform: translateY(1px);
-  }
-  100% {
-    transform: translateY(-2px);
-  }
+  /*0% {*/
+  /*  transform: translateY(1px);*/
+  /*}*/
+  /*100% {*/
+  /*  transform: translateY(-2px);*/
+  /*}*/
+  to { transform: scale(0.991); }
 }

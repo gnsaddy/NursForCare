@@ -8,15 +8,15 @@
 
 
 {% block container_fluid %}
-    <div class="container">
+    <div class="container m-1">
         {#            <img src="{% static 'svg/doc1.png' %}" alt="heart" width="80%" height="auto"#}
         {#                style="margin-left: 15%; opacity: 0.48;">#}
-        <div class="svg-animation-container-doctor" style="margin-left: 27%; width: 80%; opacity: 0.9;">
+        <div class="svg-animation-container-doctor" style="margin-left: 27%; width: 80%; opacity: 0.7;">
             {% include "ui/doctorIndex.html" %}
         </div>
         <h2 class="top-left navbar-brand" style="color: #6C63FF;">NursForCare</h2>
         <div class="row top-left">
-            <div class="col-sm-4 col-md-6 col-lg-6">
+            <div class="col-md-5 col-lg-5">
                 <div class="text-justify mt-5 font-weight-bold ">
                     <p style="color: black;">With NursForCare in-home nursing services, get the most of our healthcare
                         services
@@ -26,8 +26,24 @@
                         you with the compassionate care you deserve.</p>
                 </div>
             </div>
+            <div class="col-md-7 col-lg-7">
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <h4 class="text-left ml-2" style="color: #6C63FF;">Services</h4>
+                    <div class="text-justify mt-2 font-weight-bold ">
+                       <ul class="" style="color: black;">
+                           <li>Nursing</li>
+                           <li>Vaccination</li>
+                           <li>Elder Care</li>
+                           <li>Consultation</li>
+                           <li>Medicine</li>
+                           <li>Ambulance</li>
+                       </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
 
 
