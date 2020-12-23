@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView
 from .forms import ExtendedUserCreationForm, VendorServiceForm, ExtendedVendorCreationForm, ServiceBookingForm, \
     AddStateForm, AddCityForm
-from .models import City, Vendor, Chaperone, State
+from .models import City, VendorService, Chaperone, State
 
 
 class Index(TemplateView):
@@ -168,6 +168,6 @@ def load_cities(request):
 
 def load_services(request):
     city_id = request.GET.get('city')
-    services = Vendor.objects.filter(city_id=city_id).order_by('name')
+    services = VendorService.objects.filter(city_id=city_id).order_by('name')
 
     return render(request, 'booking/city_dropdown_list_options.html', {'services': services})

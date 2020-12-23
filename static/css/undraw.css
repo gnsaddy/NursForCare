@@ -1,0 +1,76 @@
+.svg-animation-container-login {
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    margin: 8px auto;
+    border-radius: 15%;
+    height: 500px;
+}
+
+.svg-animation-container-login svg {
+    width: 100%;
+}
+
+#Vector\ 19 {
+    animation: unlock 1.5s infinite alternate;
+}
+
+@keyframes unlock {
+    0% {
+        transform: translateX(-4px);
+    }
+    100% {
+        transform: translateX(4px);
+    }
+
+}
+
+#Vector\ 18 {
+    animation: lock 1.5s infinite alternate;
+}
+
+@keyframes lock {
+    0% {
+        transform: translateX(-8px);
+    }
+    100% {
+        transform: translateX(4px);
+    }
+
+}
+
+#face, #window {
+    animation: rt 1.5s infinite alternate;
+}
+
+@keyframes rt {
+    0% {
+        transform: translateX(4px);
+    }
+    100% {
+        transform: translateX(-2px);
+    }
+
+}
+
+#window {
+    animation: bounce 1s infinite ease-in-out alternate;
+}
+
+@keyframes bounce {
+    /*0% {*/
+    /*  transform: translateX(4px);*/
+    /*}*/
+    /*100% {*/
+    /*  transform: translateX(-2px);*/
+    /*}*/
+    to {
+        transform: scale(0.99);
+    }
+
+}
+
+.Rrrrr {
+    font: italic 55px cursive;
+    fill: palevioletred;
+}

@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
+from django.utils import timezone
 from uuid import uuid4
-
 from django.db import models
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager, PermissionsMixin)
 
@@ -61,7 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     object = UserManager()
 
     def __str__(self):
-        return self.email
+        return str(self.first_name + " " + self.last_name)
 
     @property
     def is_staff(self):
@@ -93,6 +93,11 @@ class Chaperone(User):
     def __str__(self):
         return self.email
 
+    @property
+    def days_active(self):
+        diff = timezone.now() - self.created_at
+        return diff.days
+
 
 class VendorUser(User):
     vendor_name = models.CharField(max_length=255, null=True)
@@ -106,6 +111,11 @@ class VendorUser(User):
 
     def __str__(self):
         return self.email
+
+    @property
+    def days_active(self):
+        diff = timezone.now() - self.created_at
+        return diff.days
 
 
 class State(models.Model):
@@ -130,20 +140,20 @@ class AvailableServices(models.Model):
         return self.service_name
 
 
-def content_file_name(instance, filename):
+def content_file_name_v(instance, filename):
     ext = filename.split('.')[-1]
     filename = "%s_%s.%s" % (instance.name, uuid4().hex, ext)
     return os.path.join('medicalVendor/', filename)
 
 
-class Vendor(models.Model):
+class VendorService(models.Model):
     name = models.CharField(max_length=255, db_index=True, null=True)
     service = models.ForeignKey(AvailableServices, on_delete=models.CASCADE, null=True)
     available = models.BooleanField(default=False, null=True)
     mobile = models.CharField(max_length=11, null=True)
     address = models.CharField(max_length=255, null=True)
     pin = models.CharField(max_length=10, null=True)
-    document = models.FileField(upload_to=content_file_name, default=None)
+    document = models.FileField(upload_to=content_file_name_v, default=None)
     state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
 
@@ -169,10 +179,17 @@ class Patient(models.Model):
     address = models.CharField(max_length=500)
     state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
-    service = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
+    service = models.ForeignKey(VendorService, on_delete=models.SET_NULL, null=True)
     pin = models.IntegerField()
     document = models.FileField(upload_to=content_file_name, default=None)
     bookingDate = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
-        return str(self.holder.first_name) + ' booked service for ' + (str(self.patient))
+        return str(self.holder) + ' booked service for ' + (str(self.patient))
+
+    @property
+    def days_active(self):
+        diff = timezone.now() - self.bookingDate
+        return diff.days
+
+

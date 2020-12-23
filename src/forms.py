@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import User, Patient, City, Vendor, Chaperone, VendorUser, State
+from .models import User, Patient, City, VendorService, Chaperone, VendorUser, State
 
 
 class CheckboxInput(forms.CheckboxInput):
@@ -125,7 +125,7 @@ class ServiceBookingForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['city'].queryset = City.objects.none()
-        self.fields['service'].queryset = Vendor.objects.none()
+        self.fields['service'].queryset = VendorService.objects.none()
 
         if 'state' in self.data:
             try:
@@ -139,14 +139,14 @@ class ServiceBookingForm(forms.ModelForm):
         if 'city' in self.data:
             try:
                 city_id = int(self.data.get('city'))
-                self.fields['service'].queryset = Vendor.objects.filter(city_id=city_id).order_by('name')
+                self.fields['service'].queryset = VendorService.objects.filter(city_id=city_id).order_by('name')
             except (ValueError, TypeError):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
             self.fields['service'].queryset = self.instance.city.vendor_set.order_by('name')
 
 
-# Vendor's organization registration
+# VendorService's organization registration
 class VendorServiceForm(forms.ModelForm):
     name = forms.CharField(label="Organization Name", max_length=255, required=True, widget=forms.TextInput(attrs={
         'class': 'form-control ',
@@ -171,7 +171,7 @@ class VendorServiceForm(forms.ModelForm):
     available = forms.BooleanField(label="Service Availability", required=False)
 
     class Meta:
-        model = Vendor
+        model = VendorService
         fields = ['name', 'service', 'available', 'mobile', 'address', 'state', 'city', 'pin', 'document']
 
     def __init__(self, *args, **kwargs):
