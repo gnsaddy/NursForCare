@@ -24,7 +24,20 @@
                       novalidate>
                     {% csrf_token %}
                     <div class="form-row">
-                        <div class="form-group col-md-12 mb-0">
+                        <div class="form-group col-md-4 mb-0">
+                            {#                            {{ vendorForm.registered_by|as_crispy_field }}#}
+                            <div id="div_id_registered_by" class="form-group">
+
+                                <label for="id_registered_by" class=" requiredField">
+                                    Registered by<span class="asteriskField">*</span>
+                                </label>
+                                <div class="">
+                                    <input type="text" name="registered_by" value="{{ user.first_name }} {{ user.last_name }}" maxlength="155"
+                                           class="textInput form-control" required="" id="id_registered_by" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-8 mb-0">
                             {{ vendorForm.name|as_crispy_field }}
                         </div>
                     </div>
@@ -51,7 +64,7 @@
                         <div class="form-group offset-1 col-md-2 mb-0" style="margin-top: 4%;">
                             {{ vendorForm.available|as_crispy_field }}
                         </div>
-                         <div class="form-group offset-1 col-md-4 mb-0">
+                        <div class="form-group offset-1 col-md-4 mb-0">
                             {{ vendorForm.document|as_crispy_field }}
                         </div>
                     </div>

@@ -147,7 +147,7 @@ def content_file_name_v(instance, filename):
 
 
 class VendorService(models.Model):
-    registered_by = models.ForeignKey(VendorUser, on_delete=models.CASCADE, null=True)
+    registered_by = models.CharField(max_length=155, default="None")
     name = models.CharField(max_length=255, db_index=True, null=True)
     service = models.ForeignKey(AvailableServices, on_delete=models.CASCADE, null=True)
     available = models.BooleanField(default=False, null=True)
@@ -157,6 +157,7 @@ class VendorService(models.Model):
     document = models.FileField(upload_to=content_file_name_v, default=None)
     state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
+    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
         if self.available:

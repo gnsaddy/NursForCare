@@ -115,11 +115,6 @@ def vendorService(request):
 
 
 @login_required()
-def vendorStatus(request):
-    return render(request, 'vendor/serviceStatus.html')
-
-
-@login_required()
 def registerState(request):
     ctForm = AddCityForm()
     context = State.objects.all()
@@ -171,3 +166,13 @@ def load_services(request):
     services = VendorService.objects.filter(city_id=city_id).order_by('name')
 
     return render(request, 'booking/city_dropdown_list_options.html', {'services': services})
+
+
+@login_required()
+def vendorStatus(request):
+    queryset1 = VendorService.objects.filter(registered_by=str(request.user.first_name + " " + request.user.last_name))
+    # print(queryset1)
+    # for data in queryset1:
+    #     print(data.name)
+    #     print(data.available)
+    return render(request, 'vendor/serviceStatus.html', {"serviceStatus": queryset1 })

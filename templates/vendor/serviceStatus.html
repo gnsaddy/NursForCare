@@ -6,10 +6,30 @@
 
     <div class="jumbotron jumbotron-fluid p-1">
         <div class="container">
-            <h4 class="font-weight-bold" style="color: black;">Registered Medical Vendor's status</h4>
-            <p class="lead">
+            <h4 class="font-weight-bold" style="color: black;"><u>Registered Medical Vendor's status</u></h4>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Medical Vendor name</th>
+                    <th>Verification</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in serviceStatus %}
+                    <tr>
+                        <td>{{ data.name }}</td>
+                        <td>
+                            {% if data.is_verified %}
+                                <span class="text-success">Verification done (Verified)</span>
+                            {% else %}
+                                <span class="text-danger">Verification pending (Not Verified)</span>
+                            {% endif %}
 
-            </p>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 
