@@ -129,6 +129,10 @@
                             <div><i class="fas fa-user" style="color: palevioletred;"></i></div>
                             &nbsp;Manage Profile
                         </a>
+                         <a class="nav-link" href={% url 'patientProfile' %}>
+                            <div><i class="fas fa-file-alt" style="color: palevioletred;"></i></div>
+                            &nbsp;Generate Report
+                        </a>
                     {% elif request.user.is_attendant %}
                         <div class="sb-sidenav-menu-heading">Registration</div>
                         <a class="nav-link" href={% url 'serviceBooking' %}>
@@ -144,6 +148,7 @@
                             <div><i class="fas fa-user" style="color: palevioletred;"></i></div>
                             &nbsp;Manage Profile
                         </a>
+
 
                     {% else %}
                         <div class="sb-sidenav-menu-heading">Booking & Profile</div>

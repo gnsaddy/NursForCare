@@ -82,15 +82,28 @@ class PatientList(admin.ModelAdmin):
 
 
 class VendorServiceList(admin.ModelAdmin):
-    list_display = ('name', 'service', 'available', 'mobile', 'address', 'city', 'state')
+    list_display = ('name', 'service', 'available', 'is_verified', 'mobile', 'address', 'city', 'state')
     list_display_links = ('name', 'service')
     search_fields = ('service__name', 'name', 'mobile', 'address', 'state', 'city', 'pin')
     list_per_page = 50
+    actions = ('set_vendor_not_verified', 'set_vendor_verified')
 
     def get_ordering(self, request):
         if request.user.is_superuser:
             return 'name', 'available'
         return 'name', 'available'
+
+    def set_vendor_not_verified(self, request, queryset):
+        count = queryset.update(is_verified=False)
+        self.message_user(request, f'{count} medical vendor(s) is/are now not verified')
+
+    set_vendor_not_verified.short_description = 'Mark medical vendor not verified'
+
+    def set_vendor_verified(self, request, queryset):
+        count = queryset.update(is_verified=True)
+        self.message_user(request, f'{count} medical vendor(s) is/are now verified')
+
+    set_vendor_verified.short_description = 'Mark medical vendor verified'
 
 
 admin.site.register(VendorService, VendorServiceList)
