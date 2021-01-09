@@ -180,12 +180,17 @@ def vendorStatus(request):
 
 @login_required()
 def generateReport(request):
-    qs = VendorService.objects.all()
+    qs = VendorService.objects.filter(vendor_name=request.user.id)
+    quid = ""
     for data in qs:
+        quid = data.id
         print(data)
+        print("--", data.id)
 
-    qs1 = Patient.objects.all()
+    qs1 = Patient.objects.filter(service=quid)
     for data in qs1:
         print(data)
+        print(data.id)
         print("----", data.service)
+
     return render(request, 'vendor/generateReport.html')

@@ -147,6 +147,7 @@ def content_file_name_v(instance, filename):
 
 
 class VendorService(models.Model):
+    vendor_name = models.ForeignKey(VendorUser, on_delete=models.CASCADE, null=True)
     registered_by = models.CharField(max_length=155, default="None")
     name = models.CharField(max_length=255, db_index=True, null=True)
     service = models.ForeignKey(AvailableServices, on_delete=models.CASCADE, null=True)
@@ -196,4 +197,10 @@ class Patient(models.Model):
 
 
 class PatientReport(models.Model):
-    pass
+    pname = models.CharField(max_length=100, null=True)
+    pcontact = models.CharField(max_length=12, null=True)
+    paddress = models.CharField(max_length=255, null=True)
+    pstate = models.CharField(max_length=50, null=True)
+    pcity = models.CharField(max_length=50, null=True)
+    ppin = models.CharField(max_length=50, null=True)
+    description = models.TextField(max_length=5000, null=True)

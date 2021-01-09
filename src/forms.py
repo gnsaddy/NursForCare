@@ -172,7 +172,7 @@ class VendorServiceForm(forms.ModelForm):
 
     class Meta:
         model = VendorService
-        fields = ['registered_by', 'name', 'service', 'available', 'mobile', 'address', 'state', 'city', 'pin', 'document']
+        fields = ['vendor_name', 'registered_by', 'name', 'service', 'available', 'mobile', 'address', 'state', 'city', 'pin', 'document']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
