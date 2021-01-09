@@ -195,3 +195,5 @@ class Patient(models.Model):
         return diff.days
 
 
+class PatientReport(models.Model):
+    pass

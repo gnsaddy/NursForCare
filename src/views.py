@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView
 from .forms import ExtendedUserCreationForm, VendorServiceForm, ExtendedVendorCreationForm, ServiceBookingForm, \
     AddStateForm, AddCityForm
-from .models import City, VendorService, Chaperone, State
+from .models import City, VendorService, Chaperone, State, Patient
 
 
 class Index(TemplateView):
@@ -175,4 +175,17 @@ def vendorStatus(request):
     # for data in queryset1:
     #     print(data.name)
     #     print(data.available)
-    return render(request, 'vendor/serviceStatus.html', {"serviceStatus": queryset1 })
+    return render(request, 'vendor/serviceStatus.html', {"serviceStatus": queryset1})
+
+
+@login_required()
+def generateReport(request):
+    qs = VendorService.objects.all()
+    for data in qs:
+        print(data)
+
+    qs1 = Patient.objects.all()
+    for data in qs1:
+        print(data)
+        print("----", data.service)
+    return render(request, 'vendor/generateReport.html')
