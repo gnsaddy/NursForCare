@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView
 from .forms import ExtendedUserCreationForm, VendorServiceForm, ExtendedVendorCreationForm, ServiceBookingForm, \
     AddStateForm, AddCityForm, PatientReportForm
-from .models import City, VendorService, Chaperone, State, Patient
+from .models import City, VendorService, Chaperone, State, Patient, PatientReport
 
 
 class Index(TemplateView):
@@ -89,8 +89,14 @@ def patientProfile(request):
 
 @login_required()
 def patientStatus(request):
-
-    return render(request, 'patient/patientStatus.html')
+    qs1_id = ""
+    qs1 = Patient.objects.filter(holder=request.user.id)
+    for data in qs1:
+        qs1_id = int(data.id)
+    print(qs1)
+    qs2 = PatientReport.objects.filter(pid=qs1_id)
+    print(qs2)
+    return render(request, 'patient/patientStatus.html', {"qs2": qs2})
 
 
 @login_required()

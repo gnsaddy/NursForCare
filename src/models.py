@@ -207,3 +207,6 @@ class PatientReport(models.Model):
     description = models.TextField(null=True)
     admitted_since = models.CharField(max_length=155, null=True)
     created_on = models.DateTimeField(default=datetime.now)
+
+    def __str__(self):
+        return self.pname + " : " + str(self.pid.holder.first_name)
