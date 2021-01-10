@@ -197,6 +197,7 @@ class Patient(models.Model):
 
 
 class PatientReport(models.Model):
+    pid = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True)
     pname = models.CharField(max_length=100, null=True)
     pcontact = models.CharField(max_length=12, null=True)
     paddress = models.CharField(max_length=255, null=True)
@@ -204,5 +205,5 @@ class PatientReport(models.Model):
     pcity = models.CharField(max_length=50, null=True)
     ppin = models.CharField(max_length=50, null=True)
     description = models.TextField(null=True)
-    admitted_since = models.DateTimeField(null=True)
+    admitted_since = models.CharField(max_length=155, null=True)
     created_on = models.DateTimeField(default=datetime.now)

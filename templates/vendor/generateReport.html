@@ -6,6 +6,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 <div class="card shadow">
                     <div class="card-header">
                         <div>
@@ -16,7 +26,8 @@
                                 <div class="col-md-4">
                                     <label class="font-weight-bold">
                                         Search
-                                        <input type="text" class="form-control float-right ml-auto" placeholder="Search Patient">
+                                        <input type="text" class="form-control float-right ml-auto"
+                                               placeholder="Search Patient">
                                     </label>
                                 </div>
                             </div>

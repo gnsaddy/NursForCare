@@ -89,6 +89,7 @@ def patientProfile(request):
 
 @login_required()
 def patientStatus(request):
+
     return render(request, 'patient/patientStatus.html')
 
 
@@ -203,8 +204,9 @@ def generate(request, patient_id):
         if prForm.is_valid():
             prForm.save()
             name = prForm.cleaned_data.get('pname')
+            print(name)
             messages.success(request, f'Report generated for {name} .')
-            return redirect('generate')
+            return redirect('generateReport')
     else:
         prForm = PatientReportForm()
     return render(request, 'vendor/generate.html', {"pform": prForm, "patientDetails": qs1})

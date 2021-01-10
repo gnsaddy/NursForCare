@@ -4,108 +4,111 @@
 
 {% block container_fluid %}
     <div class="container">
-    {% for data in patientDetails %}
-        <form method="post" action="{% url 'generate' data.id %}">
+        {% for data in patientDetails %}
+            <form method="post" action="{% url 'generate' data.id %}">
         {% endfor %}
-            {% csrf_token %}
-            {% for data in patientDetails %}
-                <div class="form-row">
-                    <div class="form-group col-md-6 mb-0">
-                        <div id="div_id_pname" class="form-group">
+        {% csrf_token %}
 
-                            <label for="id_pname" class=" requiredField">
-                                Pname<span class="asteriskField">*</span>
-                            </label>
-                            <div class="">
-                                <input type="text" name="pname" class="textinput textInput form-control"
-                                       id="id_pname" value="{{ data.patient }}" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6 mb-0">
-                        <div id="div_id_pcontact" class="form-group">
-                            <label for="id_pcontact" class=" requiredField">
-                                Pcontact<span class="asteriskField">*</span>
-                            </label>
-                            <div class="">
-                                <input type="text" name="pcontact" maxlength="12"
-                                       class="textinput textInput form-control"
-                                       value="{{ data.mobile }}" id="id_pcontact" readonly>
-                            </div>
+        {% for data in patientDetails %}
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    <div id="div_id_pname" class="form-group">
+
+                        <label for="id_pname" class=" requiredField">
+                            Pname<span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" name="pname" class="textinput textInput form-control"
+                                   id="id_pname" value="{{ data.patient }}" readonly>
                         </div>
                     </div>
                 </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-6 mb-0">
-                        <div id="div_id_paddress" class="form-group">
-                            <label for="id_paddress" class=" requiredField">
-                                Paddress<span class="asteriskField">*</span>
-                            </label>
-                            <div class="">
-                                <input type="text" name="paddress" maxlength="255"
-                                       class="textinput textInput form-control" value="{{ data.address }}"
-                                       id="id_paddress" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6 mb-0">
-                        <div id="div_id_pstate" class="form-group">
-                            <label for="id_pstate" class=" requiredField">
-                                Pstate<span class="asteriskField">*</span>
-                            </label>
-                            <div class="">
-                                <input type="text" name="pstate" maxlength="50" class="textinput textInput form-control"
-                                       value="{{ data.state }}" id="id_pstate" readonly>
-                            </div>
+                <div class="form-group col-md-6 mb-0">
+                    <div id="div_id_pcontact" class="form-group">
+                        <label for="id_pcontact" class=" requiredField">
+                            Pcontact<span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" name="pcontact" maxlength="12"
+                                   class="textinput textInput form-control"
+                                   value="{{ data.mobile }}" id="id_pcontact" readonly>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-4 mb-0">
-                        <div id="div_id_pcity" class="form-group">
-                            <label for="id_pcity" class=" requiredField">
-                                Pcity<span class="asteriskField">*</span>
-                            </label>
-                            <div class="">
-                                <input type="text" name="pcity" maxlength="50" class="textinput textInput form-control"
-                                       value="{{ data.city }}" id="id_pcity" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-4 mb-0">
-                        <div id="div_id_ppin" class="form-group">
-
-                            <label for="id_ppin" class=" requiredField">
-                                Ppin<span class="asteriskField">*</span>
-                            </label>
-                            <div class="">
-                                <input type="text" name="ppin" maxlength="50" class="textinput textInput form-control"
-                                       value="{{ data.pin }}" id="id_ppin" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-4 mb-0">
-                        <div id="div_id_admitted_since" class="form-group">
-                            <label for="id_admitted_since" class=" requiredField">
-                                Admitted since<span class="asteriskField">*</span>
-                            </label>
-                            <div class="">
-                                <input type="text" name="admitted_since" class="datetimeinput form-control" value="{{ data.bookingDate }}"
-                                       id="id_admitted_since" readonly>
-                            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    <div id="div_id_paddress" class="form-group">
+                        <label for="id_paddress" class=" requiredField">
+                            Paddress<span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" name="paddress" maxlength="255"
+                                   class="textinput textInput form-control" value="{{ data.address }}"
+                                   id="id_paddress" readonly>
                         </div>
                     </div>
                 </div>
-
-                {{ pform.description|as_crispy_field }}
-                <div class="form-row">
-                    <div class="form-group col-md-6 mb-0">
-                        <button type="submit" class="btn btn-success btn-group" style="color: black;">Generate Report</button>
+                <div class="form-group col-md-6 mb-0">
+                    <div id="div_id_pstate" class="form-group">
+                        <label for="id_pstate" class=" requiredField">
+                            Pstate<span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" name="pstate" maxlength="50" class="textinput textInput form-control"
+                                   value="{{ data.state }}" id="id_pstate" readonly>
+                        </div>
                     </div>
                 </div>
-            {% endfor %}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4 mb-0">
+                    <div id="div_id_pcity" class="form-group">
+                        <label for="id_pcity" class=" requiredField">
+                            Pcity<span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" name="pcity" maxlength="50" class="textinput textInput form-control"
+                                   value="{{ data.city }}" id="id_pcity" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                    <div id="div_id_ppin" class="form-group">
+
+                        <label for="id_ppin" class=" requiredField">
+                            Ppin<span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" name="ppin" maxlength="50" class="textinput textInput form-control"
+                                   value="{{ data.pin }}" id="id_ppin" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                    <div id="div_id_admitted_since" class="form-group">
+                        <label for="id_admitted_since" class=" requiredField">
+                            Admitted since<span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" name="admitted_since" class="datetimeinput form-control"
+                                   value="{{ data.bookingDate }}"
+                                   id="id_admitted_since" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {{ pform.description|as_crispy_field }}
+        <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+                <button type="submit" class="btn btn-success btn-group" style="color: black;">Generate Report</button>
+            </div>
+        </div>
+
         </form>
     </div>
 
