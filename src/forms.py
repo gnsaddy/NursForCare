@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import User, Patient, City, VendorService, Chaperone, VendorUser, State
+from .models import User, Patient, City, VendorService, Chaperone, VendorUser, State, PatientReport
 
 
 class CheckboxInput(forms.CheckboxInput):
@@ -208,3 +208,11 @@ class AddCityForm(forms.ModelForm):
     class Meta:
         model = City
         fields = ['state', 'name']
+
+
+class PatientReportForm(forms.ModelForm):
+
+    class Meta:
+        model = PatientReport
+        fields = ['pname', 'pcontact', 'paddress', 'pstate', 'pcity', 'ppin',
+                  'description', 'admitted_since']

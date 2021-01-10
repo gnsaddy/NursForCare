@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView
 from .forms import ExtendedUserCreationForm, VendorServiceForm, ExtendedVendorCreationForm, ServiceBookingForm, \
-    AddStateForm, AddCityForm
+    AddStateForm, AddCityForm, PatientReportForm
 from .models import City, VendorService, Chaperone, State, Patient
 
 
@@ -184,13 +184,27 @@ def generateReport(request):
     quid = ""
     for data in qs:
         quid = data.id
-        print(data)
-        print("--", data.id)
 
     qs1 = Patient.objects.filter(service=quid)
     for data in qs1:
         print(data)
-        print(data.id)
-        print("----", data.service)
 
-    return render(request, 'vendor/generateReport.html')
+    return render(request, 'vendor/generateReport.html', {"pdetails": qs1})
+
+
+@login_required()
+def generate(request, patient_id):
+    print(patient_id)
+    qs1 = Patient.objects.filter(id=patient_id)
+    for data in qs1:
+        print(data)
+    if request.method == 'POST':
+        prForm = PatientReportForm(request.POST)
+        if prForm.is_valid():
+            prForm.save()
+            name = prForm.cleaned_data.get('pname')
+            messages.success(request, f'Report generated for {name} .')
+            return redirect('generate')
+    else:
+        prForm = PatientReportForm()
+    return render(request, 'vendor/generate.html', {"pform": prForm, "patientDetails": qs1})

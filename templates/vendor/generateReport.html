@@ -1,8 +1,60 @@
 {% extends 'include/base.html' %}
 {% load crispy_forms_tags %}
-{% block title %}<title>Generate Patient Report</title>{% endblock %}
+{% block title %}<title>Patient Details</title>{% endblock %}
 
 {% block container_fluid %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h1 class="card-text mt-3">Patient Details</h1>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="font-weight-bold">
+                                        Search
+                                        <input type="text" class="form-control float-right ml-auto" placeholder="Search Patient">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive table-bordered">
+                            <thead class="table-danger">
+                            <tr>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Address</th>
+                                <th>Pin Code</th>
+                                <th>Document</th>
+                                <th>Generate Report</th>
+                            </tr>
+                            </thead>
+                            <tbody style="background-color: lightgray;">
+                            {% for data in pdetails %}
+                                <tr>
+                                    <th>{{ data.patient }}</th>
+                                    <th>{{ data.mobile }}</th>
+                                    <th>{{ data.address }}</th>
+                                    <th>{{ data.pin }}</th>
+                                    <th><a href="{{ data.document.url }}"
+                                           class="btn btn-info text-decoration-none font-weight-bold"
+                                           style="color: black;">View</a></th>
+                                    <th><a href="{% url 'generate' data.id %}" class="btn btn-primary font-weight-bold"
+                                           style="color: white;">Generate</a></th>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 {% endblock %}

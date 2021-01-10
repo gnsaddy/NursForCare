@@ -203,4 +203,6 @@ class PatientReport(models.Model):
     pstate = models.CharField(max_length=50, null=True)
     pcity = models.CharField(max_length=50, null=True)
     ppin = models.CharField(max_length=50, null=True)
-    description = models.TextField(max_length=5000, null=True)
+    description = models.TextField(null=True)
+    admitted_since = models.DateTimeField(null=True)
+    created_on = models.DateTimeField(default=datetime.now)

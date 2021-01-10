@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import User, Patient, State, City
-from .models import VendorService, AvailableServices, VendorUser, Chaperone
+from .models import VendorService, AvailableServices, VendorUser, Chaperone, PatientReport
 
 
 class VendorList(admin.ModelAdmin):
@@ -106,6 +106,16 @@ class VendorServiceList(admin.ModelAdmin):
     set_vendor_verified.short_description = 'Mark medical vendor verified'
 
 
+class PatientReportList(admin.ModelAdmin):
+    list_display = ('pname', 'pcontact', 'paddress', 'pstate',
+                    'pcity', 'ppin', 'description', 'admitted_since', 'created_on')
+    list_display_links = ('pname',)
+    search_fields = ('pname', 'pcontact', 'pstate', 'pcity', 'ppin')
+    list_per_page = 50
+    date_hierarchy = 'created_on'
+    readonly_fields = ('created_on',)
+
+
 admin.site.register(VendorService, VendorServiceList)
 admin.site.register(Chaperone, ChaperoneList)
 admin.site.register(AvailableServices)
@@ -113,6 +123,7 @@ admin.site.register(Patient, PatientList)
 admin.site.register(State)
 admin.site.register(City, CityList)
 admin.site.register(VendorUser, VendorList)
+admin.site.register(PatientReport, PatientReportList)
 
 
 class UserList(admin.ModelAdmin):
