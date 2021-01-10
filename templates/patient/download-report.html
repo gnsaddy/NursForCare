@@ -1,0 +1,86 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="Nurse for care, home care service provider"/>
+    <meta name="author" content="Aditya Raj"/>
+    <title>Download | Report</title>
+    <link rel="stylesheet" href={% static 'css/bootstrap.css' %}/>
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+          crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container mt-2 p-1">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                {% for data in qs %}
+                    <div class="card-header">
+                        <h4 class="card-text">{{ data.pname }}'s Medical Report </h4>Date: {{ data.created_on }}
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="name">Patient Name:</label>
+                                <input type="text" id="name" class="form-control" readonly value="{{ data.pname }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="number">Contact Number:</label>
+                                <input type="text" id="number" class="form-control" readonly
+                                       value="{{ data.pcontact }}">
+                            </div>
+                        </div>
+                        <div class="form-row mt-2">
+                            <div class="col-md-9">
+                                <label for="address">Address:</label>
+                                <input type="text" id="address" class="form-control input-group" readonly
+                                       value="{{ data.paddress }}">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="pin">Pincode:</label>
+                                <input type="text" id="pin" class="form-control input-group" readonly
+                                       value="{{ data.ppin }}">
+                            </div>
+                        </div>
+                        <div class="form-row mt-2">
+                            <div class="col-md-6">
+                                <label for="city">City:</label>
+                                <input type="text" id="city" class="form-control" readonly value="{{ data.pcity }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="state">State:</label>
+                                <input type="text" id="state" class="form-control" readonly
+                                       value="{{ data.pstate }}">
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <label for="des">Description:</label>
+                                <textarea type="text" id="des" class="form-control" readonly rows="10"
+                                          cols="50">{{ data.description }}</textarea>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-auto">
+                                <button class="btn btn-success btn-block" onclick="window.print();">Download Report</button>
+                            </div>
+                            <div class="col-auto">
+                                <a href="/" class="text-decoration-none"><button class="btn btn-success btn-block">HOME</button></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

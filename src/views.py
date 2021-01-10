@@ -5,6 +5,8 @@ from django.views.generic import TemplateView, ListView
 from .forms import ExtendedUserCreationForm, VendorServiceForm, ExtendedVendorCreationForm, ServiceBookingForm, \
     AddStateForm, AddCityForm, PatientReportForm
 from .models import City, VendorService, Chaperone, State, Patient, PatientReport
+from reportlab.pdfgen import canvas
+from django.http import HttpResponse
 
 
 class Index(TemplateView):
@@ -97,6 +99,13 @@ def patientStatus(request):
     qs2 = PatientReport.objects.filter(pid=qs1_id)
     print(qs2)
     return render(request, 'patient/patientStatus.html', {"qs2": qs2})
+
+
+@login_required()
+def getpdf(request, pid):
+    qs = PatientReport.objects.filter(id=pid)
+    print(qs)
+    return render(request, 'patient/download-report.html', {'qs': qs})
 
 
 @login_required()

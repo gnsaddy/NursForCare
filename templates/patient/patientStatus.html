@@ -59,7 +59,7 @@
                                     <th>{{ data.ppin }}</th>
                                     <th>{{ data.description }}</th>
                                     <th>{{ data.admitted_since }}</th>
-                                    <th><a href="{% url 'generate' data.id %}" class="btn btn-primary font-weight-bold"
+                                    <th><a href="{% url 'downloadpdf' data.id %}" class="btn btn-primary font-weight-bold"
                                            style="color: white;">Generate</a></th>
                                 </tr>
                             {% endfor %}

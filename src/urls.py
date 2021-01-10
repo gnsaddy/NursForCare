@@ -17,6 +17,7 @@ urlpatterns = [
     path('vendorStatus/', views.vendorStatus, name="vendorStatus"),
     path('generateReport/', views.generateReport, name="generateReport"),
     path('generate/<int:patient_id>', views.generate, name="generate"),
+    path('downloadPDF/<int:pid>', views.getpdf, name="downloadpdf"),
     path('registerState/', views.registerState, name="registerState"),
     path('registerCity/', views.registerCity, name="registerCity"),
     path('ajax/load-cities/', views.load_cities, name='ajax_load_cities'),

@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'src',
+    'reportlab',
+    'xhtml2pdf'
 ]
 
 MIDDLEWARE = [
