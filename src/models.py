@@ -147,7 +147,7 @@ def content_file_name_v(instance, filename):
 
 
 class VendorService(models.Model):
-    vendor_name = models.ForeignKey(VendorUser, on_delete=models.CASCADE, null=True)
+    identification = models.ForeignKey(VendorUser, on_delete=models.CASCADE, null=True)
     registered_by = models.CharField(max_length=155, default="None")
     name = models.CharField(max_length=255, db_index=True, null=True)
     service = models.ForeignKey(AvailableServices, on_delete=models.CASCADE, null=True)

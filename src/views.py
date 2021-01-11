@@ -91,14 +91,20 @@ def patientProfile(request):
 
 @login_required()
 def patientStatus(request):
+    qs2 = ""
+    ret = ""
     qs1_id = ""
-    qs1 = Patient.objects.filter(holder=request.user.id)
-    for data in qs1:
-        qs1_id = int(data.id)
-    print(qs1)
-    qs2 = PatientReport.objects.filter(pid=qs1_id)
-    print(qs2)
-    return render(request, 'patient/patientStatus.html', {"qs2": qs2})
+    try:
+        qs1 = Patient.objects.filter(holder=request.user.id)
+        for data in qs1:
+            qs1_id = int(data.id)
+        print(qs1)
+        qs2 = PatientReport.objects.filter(pid=qs1_id)
+        print(qs2)
+    except Exception as e:
+        ret = "No record found"
+
+    return render(request, 'patient/patientStatus.html', {"qs2": qs2, "ret": ret})
 
 
 @login_required()
@@ -196,16 +202,22 @@ def vendorStatus(request):
 
 @login_required()
 def generateReport(request):
-    qs = VendorService.objects.filter(vendor_name=request.user.id)
+    qs = ""
     quid = ""
-    for data in qs:
-        quid = data.id
+    ret = ""
+    qs1 = ""
+    try:
+        qs = VendorService.objects.filter(identification=request.user.id)
+        for data in qs:
+            quid = data.id
 
-    qs1 = Patient.objects.filter(service=quid)
-    for data in qs1:
-        print(data)
+        qs1 = Patient.objects.filter(service=quid)
+        for data in qs1:
+            print(data)
+    except:
+        ret = "No patient(s) is/are registered yet!!!"
 
-    return render(request, 'vendor/generateReport.html', {"pdetails": qs1})
+    return render(request, 'vendor/generateReport.html', {"pdetails": qs1, "ret": ret})
 
 
 @login_required()

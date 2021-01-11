@@ -172,7 +172,8 @@ class VendorServiceForm(forms.ModelForm):
 
     class Meta:
         model = VendorService
-        fields = ['vendor_name', 'registered_by', 'name', 'service', 'available', 'mobile', 'address', 'state', 'city', 'pin', 'document']
+        fields = ['identification', 'registered_by', 'name', 'service', 'available', 'mobile', 'address', 'state',
+                  'city', 'pin', 'document']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -211,7 +212,6 @@ class AddCityForm(forms.ModelForm):
 
 
 class PatientReportForm(forms.ModelForm):
-
     class Meta:
         model = PatientReport
         fields = ['pname', 'pcontact', 'paddress', 'pstate', 'pcity', 'ppin',

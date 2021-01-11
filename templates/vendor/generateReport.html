@@ -34,33 +34,39 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-responsive table-bordered">
-                            <thead class="table-danger">
-                            <tr>
-                                <th>Name</th>
-                                <th>Contact</th>
-                                <th>Address</th>
-                                <th>Pin Code</th>
-                                <th>Document</th>
-                                <th>Generate Report</th>
-                            </tr>
-                            </thead>
-                            <tbody style="background-color: lightgray;">
-                            {% for data in pdetails %}
+                        {% if pdetails %}
+                            <table class="table table-responsive table-bordered">
+                                <thead class="table-danger">
                                 <tr>
-                                    <th>{{ data.patient }}</th>
-                                    <th>{{ data.mobile }}</th>
-                                    <th>{{ data.address }}</th>
-                                    <th>{{ data.pin }}</th>
-                                    <th><a href="{{ data.document.url }}"
-                                           class="btn btn-info text-decoration-none font-weight-bold"
-                                           style="color: black;">View</a></th>
-                                    <th><a href="{% url 'generate' data.id %}" class="btn btn-primary font-weight-bold"
-                                           style="color: white;">Generate</a></th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Address</th>
+                                    <th>Pin Code</th>
+                                    <th>Document</th>
+                                    <th>Generate Report</th>
                                 </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody style="background-color: lightgray;">
+                                {% for data in pdetails %}
+                                    <tr>
+                                        <th>{{ data.patient }}</th>
+                                        <th>{{ data.mobile }}</th>
+                                        <th>{{ data.address }}</th>
+                                        <th>{{ data.pin }}</th>
+                                        <th><a href="{{ data.document.url }}"
+                                               class="btn btn-info text-decoration-none font-weight-bold"
+                                               style="color: black;">View</a></th>
+                                        <th><a href="{% url 'generate' data.id %}"
+                                               class="btn btn-primary font-weight-bold"
+                                               style="color: white;">Generate</a></th>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <h4 class="text-danger">{{ ret }}</h4>
+                            <h4 class="text-danger">Patient is not registered yet!!!</h4>
+                        {% endif %}
                     </div>
                 </div>
             </div>
