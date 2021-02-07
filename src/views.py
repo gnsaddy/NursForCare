@@ -86,7 +86,14 @@ def bookingService(request):
 
 @login_required()
 def patientProfile(request):
-    return render(request, 'patient/patientProfile.html')
+    qs1 = ""
+    ret = ""
+    try:
+        qs1 = Patient.objects.filter(holder=request.user.id)
+    except Exception as e:
+        ret = "No record found"
+
+    return render(request, 'patient/patientProfile.html', {"qs1": qs1, "ret": ret})
 
 
 @login_required()
@@ -99,8 +106,10 @@ def patientStatus(request):
         for data in qs1:
             qs1_id = int(data.id)
         print(qs1)
-        qs2 = PatientReport.objects.filter(pid=qs1_id)
+        print(qs1_id)
+        qs2 = PatientReport.objects.filter(id=int(qs1_id))
         print(qs2)
+
     except Exception as e:
         ret = "No record found"
 
@@ -116,9 +125,17 @@ def getpdf(request, pid):
 
 @login_required()
 def vendorProfile(request):
-    return render(request, 'vendor/vendorProfile.html')
+    qs1 = ""
+    ret = ""
+    try:
+        qs1 = VendorService.objects.filter(identification=request.user.id)
+    except Exception as e:
+        ret = "No record found"
+
+    return render(request, 'vendor/vendorProfile.html', {"qs1": qs1, "ret": ret})
 
 
+@login_required()
 def vendorService(request):
     if request.method == 'POST':
         vendorForm = VendorServiceForm(request.POST, request.FILES)

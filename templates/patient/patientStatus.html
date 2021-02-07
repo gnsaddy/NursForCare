@@ -23,13 +23,13 @@
                                 <div class="col-md-8">
                                     <h1 class="card-text mt-3">Patient Details</h1>
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="font-weight-bold">
-                                        Search
-                                        <input type="text" class="form-control float-right ml-auto"
-                                               placeholder="Search Patient">
-                                    </label>
-                                </div>
+{#                                <div class="col-md-4">#}
+{#                                    <label class="font-weight-bold">#}
+{#                                        Search#}
+{#                                        <input type="text" class="form-control float-right ml-auto"#}
+{#                                               placeholder="Search Patient">#}
+{#                                    </label>#}
+{#                                </div>#}
                             </div>
                         </div>
                     </div>
@@ -59,8 +59,8 @@
                                         <th>{{ data.pstate }}</th>
                                         <th>{{ data.pcity }}</th>
                                         <th>{{ data.ppin }}</th>
-                                        <th>{{ data.description }}</th>
                                         <th>{{ data.admitted_since }}</th>
+                                        <th>{{ data.description }}</th>
                                         <th><a href="{% url 'downloadpdf' data.id %}"
                                                class="btn btn-primary font-weight-bold"
                                                style="color: white;">Generate</a></th>

@@ -1,8 +1,72 @@
 {% extends 'include/base.html' %}
 {% load crispy_forms_tags %}
-{% block title %}<title>Vendor Profile</title>{% endblock %}
+{% block title %}<title>Vendor's Profile</title>{% endblock %}
 
 {% block container_fluid %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="card shadow">
+                    <div class="card-header">
+                        <div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h3 class="card-text mt-3">Vendor's Profile</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% if qs1 %}
+                            <table class="table table-responsive table-bordered">
+                                <thead class="table-danger">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Service</th>
+                                    <th>Available</th>
+                                    <th>Mobile</th>
+                                    <th>Address</th>
+                                    <th>State</th>
+                                    <th>Verified?</th>
+                                    <th>Document</th>
+                                </tr>
+                                </thead>
+                                <tbody style="background-color: lightgray;">
 
+                                {% for data in qs1 %}
+                                    <tr>
+                                        <th>{{ data.name }}</th>
+                                        <th>{{ data.service }}</th>
+                                        <th>{{ data.available }}</th>
+                                        <th>{{ data.mobile }}</th>
+                                        <th>{{ data.address }}</th>
+                                        <th>{{ data.state }}</th>
+                                        <th>{{ data.is_verified }}</th>
+                                        <th><a href="{{ data.document.url }}"
+                                               class="btn btn-primary font-weight-bold"
+                                               style="color: white;">View</a></th>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <h4 class="text-danger">{{ ret }}</h4>
+                            <h4 class="text-danger">No vendor service</h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
