@@ -43,7 +43,6 @@
                                     <th>Address</th>
                                     <th>Pin Code</th>
                                     <th>Document</th>
-                                    <th>Generate Report</th>
                                 </tr>
                                 </thead>
                                 <tbody style="background-color: lightgray;">
@@ -56,9 +55,6 @@
                                         <th><a href="{{ data.document.url }}"
                                                class="btn btn-info text-decoration-none font-weight-bold"
                                                style="color: black;">View</a></th>
-                                        <th><a href="{% url 'generate' data.id %}"
-                                               class="btn btn-primary font-weight-bold"
-                                               style="color: white;">Generate</a></th>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

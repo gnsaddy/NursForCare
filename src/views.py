@@ -238,6 +238,26 @@ def generateReport(request):
 
 
 @login_required()
+def registeredPatient(request):
+    qs = ""
+    quid = ""
+    ret = ""
+    qs1 = ""
+    try:
+        qs = VendorService.objects.filter(identification=request.user.id)
+        for data in qs:
+            quid = data.id
+
+        qs1 = Patient.objects.filter(service=quid)
+        for data in qs1:
+            print(data)
+    except:
+        ret = "No patient(s) is/are registered yet!!!"
+
+    return render(request, 'vendor/registeredPatient.html', {"pdetails": qs1, "ret": ret})
+
+
+@login_required()
 def generate(request, patient_id):
     print(patient_id)
     qs1 = Patient.objects.filter(id=patient_id)

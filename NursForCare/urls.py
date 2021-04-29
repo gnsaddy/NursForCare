@@ -24,4 +24,4 @@ urlpatterns = [
 
 admin.site.site_header = 'NursForCare Admin Panel'
 admin.site.index_title = 'Welcome to NursForCare Admin Panel'
-admin.site.site_title = 'Control Panel'
+admin.site.site_title = 'NFC'

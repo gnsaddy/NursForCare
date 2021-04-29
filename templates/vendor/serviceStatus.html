@@ -7,6 +7,7 @@
     <div class="jumbotron jumbotron-fluid p-1 shadow rounded">
         <div class="container">
             <h4 class="font-weight-bold" style="color: black;"><u>Registered Medical Vendor's status</u></h4>
+        {% if serviceStatus %}
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -31,6 +32,9 @@
                 </tbody>
             </table>
         </div>
+    {% else %}
+        <h4 class="text-danger mt-4">No data found</h4>
+    {% endif %}
     </div>
 
 {% endblock %}
